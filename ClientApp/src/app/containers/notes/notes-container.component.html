@@ -1,0 +1,15 @@
+<div class="container">
+
+    <div class="row">
+        <div class="col bg-secondary">
+            <h3>BoardComponent: {{( boards$ | async) | json}}</h3>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12 btn btn-outline-primary btn-add-board" (click)="AddBoard()">
+            Add Board
+        </div>
+        <app-board *ngFor="let board of (boards$ | async)" [boardId]="board.Id"></app-board>
+    </div>
+</div>

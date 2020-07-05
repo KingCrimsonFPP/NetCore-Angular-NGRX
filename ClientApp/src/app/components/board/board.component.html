@@ -1,0 +1,28 @@
+<div class="col-md-4 col-sm-6 bg-info">
+  <h3>BoardComponent: {{( board$ | async) | json}}</h3>
+</div>
+
+<div class="col-md-4 col-sm-6" *ngIf="(board$ | async) as boardModel">
+  <div class="card">
+    <h3 class="card-header">
+      {{ boardModel.Title }}
+      <div class="text-muted">
+        <small>Created {{ boardModel.Date | date: short }}</small>
+      </div>
+      <div class="btn btn-sm btn-primary btn-add-note" (click)="addNote()">
+        Add
+      </div>
+      <div class="btn btn-sm btn-danger btn-delete-board ml-1" (click)="deleteBoard()">
+        Delete
+      </div>
+    </h3>
+    <div class="card-body">
+      <div class="row">
+        {{boardModel.Notes | json}}
+        {{boardModel.Notes }}
+
+        <app-note *ngFor="let note of boardModel.Notes" [boardId]="boardModel.Id" [noteId]="note.Id"></app-note>
+      </div>
+    </div>
+  </div>
+</div>

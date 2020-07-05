@@ -1,0 +1,43 @@
+<div class="col-sm-12">
+  <h3>NoteComponent: {{( note$ | async) | json}}</h3>
+</div>
+
+<div *ngIf="( note$ | async) as noteModel" class="col-sm-12">
+  <div class="card bg-warning postit-card">
+    <div class="card-body">
+      <div *ngIf="!noteModel.EditMode" class="lbl-text-postit">
+        {{ noteModel.Description }}
+      </div>
+      <textarea
+        class="form-control p-1 input-text-postit"
+        *ngIf="noteModel.EditMode"
+        [(ngModel)]="noteModel.Description"
+      ></textarea>
+    </div>
+    <div class="card-footer text-muted">
+      <div *ngIf="!noteModel.New" class="postit-created-date">
+        <small>Created {{ noteModel.Date | date: short }}</small>
+      </div>
+      <div>
+        <span
+          *ngIf="!noteModel.New"
+          class="btn-delete-postit btn btn-danger btn-sm mx-1"
+          (click)="deleteNote()"
+          >Delete</span
+        >
+        <span
+          *ngIf="noteModel.EditMode"
+          class="btn-save-postit btn btn-primary btn-sm mx-1"
+          (click)="saveNote()"
+          >Save</span
+        >
+        <span
+          *ngIf="noteModel.EditMode"
+          class="btn-cancel-postit btn btn-primary btn-sm mx-1"
+          (click)="cancelNote()"
+          >Cancel</span
+        >
+      </div>
+    </div>
+  </div>
+</div>

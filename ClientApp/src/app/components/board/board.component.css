@@ -1,0 +1,16 @@
+.card
+{
+    margin: 1rem;
+    padding: 1rem;
+    border: solid 1px #555;
+    box-shadow:  0 0 10px  rgba(0,0,0,0.3);
+    -moz-box-shadow: 0 0 10px  rgba(0,0,0,0.3);
+    -webkit-box-shadow: 0 0 10px  rgba(0,0,0,0.3);
+    -o-box-shadow: 0 0 10px  rgba(0,0,0,0.3);
+}
+
+.col-sm-6,
+.col-md-4 {
+    max-width: 100%;
+    padding: 0rem;
+}
