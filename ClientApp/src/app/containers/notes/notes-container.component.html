@@ -10,6 +10,6 @@
         <div class="col-12 btn btn-outline-primary btn-add-board" (click)="AddBoard()">
             Add Board
         </div>
-        <app-board *ngFor="let board of (boards$ | async)" [boardId]="board.Id"></app-board>
+        <app-board *ngFor="let board of ((boards$ | async) | sortBy:'asc': 'Id')" [boardId]="board.Id"></app-board>
     </div>
 </div>

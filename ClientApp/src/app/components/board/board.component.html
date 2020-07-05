@@ -21,7 +21,7 @@
         {{boardModel.Notes | json}}
         {{boardModel.Notes }}
 
-        <app-note *ngFor="let note of boardModel.Notes" [boardId]="boardModel.Id" [noteId]="note.Id"></app-note>
+        <app-note *ngFor="let note of (boardModel.Notes | sortBy:'asc': 'Id')" [boardId]="boardModel.Id" [noteId]="note.Id"></app-note>
       </div>
     </div>
   </div>

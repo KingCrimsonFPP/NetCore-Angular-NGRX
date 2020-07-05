@@ -14,6 +14,7 @@ import { CounterContainerComponent } from './containers/counter/counter-containe
 import { BoardComponent } from './components/board/board.component';
 import { NotesContainerComponent } from './containers/notes/notes-container.component';
 import { NoteComponent } from './components/note/note.component';
+import { SortByPipe } from './common/sort-by-pipe';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { NoteComponent } from './components/note/note.component';
     NoteComponent,
     NotesContainerComponent,
     BoardComponent,
-    WeatherContainerComponent
+    WeatherContainerComponent,
+    SortByPipe
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
