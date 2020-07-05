@@ -1,12 +1,12 @@
 {
-  "name": "Assessmentpreparation",
+  "name": "NetCoreAngularNgrx",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "build-watch": "ng build --watch=true",
-    "build:ssr": "ng run AssessmentPreparation:server:dev",
+    "build:ssr": "ng run NetCoreAngularNgrx:server:dev",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

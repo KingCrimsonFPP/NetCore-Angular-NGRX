@@ -1,8 +1,8 @@
-﻿using AssessmentPreparation.Common.Models;
+using NetCoreAngularNgrx.Common.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace AssessmentPreparation.Repositories.Common
+namespace NetCoreAngularNgrx.Repositories.Common
 {
     public static class StartupRepositories
     {

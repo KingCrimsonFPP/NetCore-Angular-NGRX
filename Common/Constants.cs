@@ -1,4 +1,4 @@
-﻿namespace AssessmentPreparation.Common
+namespace NetCoreAngularNgrx.Common
 {
     public class Constants
     {

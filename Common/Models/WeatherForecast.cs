@@ -1,6 +1,6 @@
 using System;
 
-namespace AssessmentPreparation.Common.Models
+namespace NetCoreAngularNgrx.Common.Models
 {
     public class WeatherForecast
     {

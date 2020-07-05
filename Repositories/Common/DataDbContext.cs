@@ -1,9 +1,9 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using AssessmentPreparation.Common.Models;
+using NetCoreAngularNgrx.Common.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace AssessmentPreparation.Repositories.Common
+namespace NetCoreAngularNgrx.Repositories.Common
 {
     public class DataDbContext : DbContext
     {

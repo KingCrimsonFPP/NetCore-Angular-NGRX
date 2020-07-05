@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
-namespace AssessmentPreparation.Repositories
+namespace NetCoreAngularNgrx.Repositories
 {
     public interface IDataRepository<T>
     {

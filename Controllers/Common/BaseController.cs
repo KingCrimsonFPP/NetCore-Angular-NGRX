@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using AssessmentPreparation.Repositories;
+using NetCoreAngularNgrx.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AssessmentPreparation.Controllers.Common
+namespace NetCoreAngularNgrx.Controllers.Common
 {
     public abstract class BaseController<T,TIdType> : Controller
     {

@@ -1,8 +1,8 @@
-﻿using AssessmentPreparation.Common.Models;
-using AssessmentPreparation.Repositories.Common;
+using NetCoreAngularNgrx.Common.Models;
+using NetCoreAngularNgrx.Repositories.Common;
 using Microsoft.EntityFrameworkCore;
 
-namespace AssessmentPreparation.Repositories
+namespace NetCoreAngularNgrx.Repositories
 {
     public class WeatherForecastRepository : EfDataRepository<WeatherForecast>
     {

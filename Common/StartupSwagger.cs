@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 
-namespace AssessmentPreparation.Common
+namespace NetCoreAngularNgrx.Common
 {
     public static class StartupSwagger
     {

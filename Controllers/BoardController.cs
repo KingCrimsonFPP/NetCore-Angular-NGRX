@@ -1,13 +1,13 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using AssessmentPreparation.Common;
-using AssessmentPreparation.Common.Models;
-using AssessmentPreparation.Controllers.Common;
-using AssessmentPreparation.Repositories;
+using NetCoreAngularNgrx.Common;
+using NetCoreAngularNgrx.Common.Models;
+using NetCoreAngularNgrx.Controllers.Common;
+using NetCoreAngularNgrx.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AssessmentPreparation.Controllers
+namespace NetCoreAngularNgrx.Controllers
 {
 
     [Route("api/[controller]")]

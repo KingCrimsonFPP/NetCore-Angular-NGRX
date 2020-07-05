@@ -1,8 +1,8 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace AssessmentPreparation.Common.Models
+namespace NetCoreAngularNgrx.Common.Models
 {
     public class Board
     {

@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace AssessmentPreparation.Common.Models
+namespace NetCoreAngularNgrx.Common.Models
 {
     public class Note
     {

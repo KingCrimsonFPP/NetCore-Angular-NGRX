@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace AssessmentPreparation.Migrations
+namespace NetCoreAngularNgrx.Migrations
 {
     public partial class initial : Migration
     {

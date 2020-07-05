@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 
-namespace AssessmentPreparation.Repositories.Common
+namespace NetCoreAngularNgrx.Repositories.Common
 {
     public abstract class EfDataRepository<T> : IDataRepository<T> where T : class
     {
