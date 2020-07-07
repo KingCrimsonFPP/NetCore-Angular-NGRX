@@ -15,10 +15,9 @@ export function boardsFeatureReducer(
   return boardsReducer(state, action);
 }
 
-// REDUCER
 const boardsReducer = createReducer(
   initialState,
-  //#region  REDUCERS => BOARD ################################################################################
+  //#region  REDUCERS => BOARD ###############################################################################
 
   //#region  LOAD BOARD 
   on(noteActions.loadRequest, (state: BoardsState) => {
@@ -74,6 +73,18 @@ const boardsReducer = createReducer(
   }),
   //#endregion 
 
+  //#region  REMOVE NEW BOARD 
+  on(noteActions.removeNewBoard, (state, action) => {
+    var result = {
+      ...state,
+      boards: [...allButAffectedBoards(state, action.id)],
+      isLoading: false,
+      errorMessage: null,
+    };
+    return result;
+  }),
+  //#endregion 
+
   //#region  EDIT BOARD 
   on(noteActions.editBoard, (state, action) => {
     var result = {
@@ -110,18 +121,6 @@ const boardsReducer = createReducer(
       errorMessage: null,
     };
 
-    return result;
-  }),
-  //#endregion 
-
-  //#region  REMOVE BOARD 
-  on(noteActions.removeNewBoard, (state, action) => {
-    var result = {
-      ...state,
-      boards: [...allButAffectedBoards(state, action.id)],
-      isLoading: false,
-      errorMessage: null,
-    };
     return result;
   }),
   //#endregion 
@@ -190,7 +189,7 @@ const boardsReducer = createReducer(
   }),
   //#endregion 
 
-  //#endregion
+  //#endregion ###############################################################################################
 
   //#region  REDUCERS => NOTE ################################################################################
 
@@ -216,6 +215,24 @@ const boardsReducer = createReducer(
         {
           ...affectedBoard(state, action.boardId),
           Notes: [...affectedBoardNotesList(state, action.boardId), newNote],
+        },
+      ],
+      isLoading: false,
+      errorMessage: null,
+    };
+    return result;
+  }),
+  //#endregion
+
+  // #region REMOVE NEW NOTE
+  on(noteActions.removeNewNote, (state, action) => {
+    var result = {
+      ...state,
+      boards: [
+        ...allButAffectedBoards(state, action.boardId),
+        {
+          ...affectedBoard(state, action.boardId),
+          Notes: allButAffectedNotes(state, action.boardId, action.noteId),
         },
       ],
       isLoading: false,
@@ -278,24 +295,6 @@ const boardsReducer = createReducer(
     return result;
   }),
   //#endregion 
-
-  // #region REMOVE NEW NOTE
-  on(noteActions.removeNewNote, (state, action) => {
-    var result = {
-      ...state,
-      boards: [
-        ...allButAffectedBoards(state, action.boardId),
-        {
-          ...affectedBoard(state, action.boardId),
-          Notes: allButAffectedNotes(state, action.boardId, action.noteId),
-        },
-      ],
-      isLoading: false,
-      errorMessage: null,
-    };
-    return result;
-  }),
-  //#endregion
 
   //#region  SAVE NOTE 
   on(noteActions.saveNoteRequest, (state: BoardsState, action) => {
@@ -380,8 +379,10 @@ const boardsReducer = createReducer(
   })
   //#endregion 
 
-  //#endregion 
+  //#endregion ################################################################################################
 );
+
+/* #region  PRIVATE HELPER FUNCTIONS */
 
 function allButAffectedBoards(state: BoardsState, boardId: number): Board[] {
   var result = state.boards.filter((board) => board.Id !== boardId && excludePersisted(board));
@@ -411,4 +412,4 @@ function affectedNote(state: BoardsState, boardId: number, noteId: number): Note
 function excludePersisted(model: IEditable) {
   return !(model.IsSaving && (model.EditMode || model.IsNew));
 }
-//#endregion
+/* #endregion */

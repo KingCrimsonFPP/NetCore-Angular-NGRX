@@ -14,6 +14,12 @@ export class BoardService
       return this.http.post<Board>(endpoint,model);
     }
 
+    public Patch(model:Board) : Observable<Board>
+    {
+      var endpoint = this.baseUrl+'api/board/';
+      return this.http.patch<Board>(endpoint,model);
+    }
+
     public Find(boardId: number) : Observable<Board>
     {
       var endpoint = this.baseUrl+'api/board/'+boardId;

@@ -43,14 +43,14 @@ namespace NetCoreAngularNgrx.Controllers.Common
         }
 
         [HttpPost]
-        public virtual T Add(T T)
+        public virtual T Add([FromBody]T T)
         {
             var result = DataRepository.Add(T);
             return result;
         }
 
         [HttpPatch]
-        public virtual T Update(T T)
+        public virtual T Update([FromBody]T T)
         {
             var result = DataRepository.Update(T);
             return result;

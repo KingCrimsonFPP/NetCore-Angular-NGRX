@@ -6,6 +6,8 @@ import * as boardActions from './actions';
 import { Action } from '@ngrx/store';
 import { BoardService } from 'src/app/services/board.service';
 import { NoteService } from 'src/app/services/note.service';
+import { Board } from 'src/app/models/board.model';
+import { Note } from 'src/app/models/note.model';
 
 @Injectable()
 export class BoardsEffects {
@@ -15,7 +17,8 @@ export class BoardsEffects {
         private noteService: NoteService,
     ) { }
 
-    /* #region EFFECTS => BOARD */
+    // #region EFFECTS => BOARD #################################################################################
+
     /* #region LOAD BOARD */
     loadRequest$: Observable<Action> = createEffect(() =>
         this.actions$.pipe(
@@ -34,11 +37,19 @@ export class BoardsEffects {
     saveRequest$: Observable<Action> = createEffect(() =>
         this.actions$.pipe(
             ofType(boardActions.saveBoardRequest),
-            switchMap((action) =>
-                this.boardService.Add(action.payload).pipe(
+            switchMap((action) => {
+                var result$: Observable<Board>;
+                if (action.payload.IsNew) {
+                    result$ = this.boardService.Add(action.payload);
+                }
+                else {
+                    result$ = this.boardService.Patch(action.payload);
+                }
+                return result$.pipe(
                     map(board => boardActions.saveBoardSuccess({ payload: board })),
                     catchError(error => of(boardActions.loadFailure({ error })))
-                ),
+                );
+            },
             ),
         )
     );
@@ -58,20 +69,28 @@ export class BoardsEffects {
     );
     /* #endregion */
 
-    /* #endregion */
+    //#endregion ################################################################################################
 
-    
-    /* #region EFFECTS => NOTE */
 
-    /* #region ADD NOTE */
+    // #region EFFECTS => NOTE ##################################################################################
+
+    /* #region SAVE NOTE */
     saveNoteRequest$: Observable<Action> = createEffect(() =>
         this.actions$.pipe(
             ofType(boardActions.saveNoteRequest),
-            switchMap((action) =>
-                this.noteService.Add(action.boardId,action.payload).pipe(
+            switchMap((action) => {
+                var result$: Observable<Note>;
+                if (action.payload.IsNew) {
+                    result$ = this.noteService.Add(action.boardId, action.payload);
+                }
+                else {
+                    result$ = this.noteService.Patch(action.boardId, action.payload);
+                }
+                return result$.pipe(
                     map(note => boardActions.saveNoteSuccess({ payload: note })),
                     catchError(error => of(boardActions.saveNoteFailure({ error })))
-                ),
+                );
+            },
             ),
         )
     );
@@ -82,7 +101,7 @@ export class BoardsEffects {
         this.actions$.pipe(
             ofType(boardActions.deleteNoteRequest),
             switchMap((action) =>
-                this.noteService.Delete(action.boardId,action.noteId).pipe(
+                this.noteService.Delete(action.boardId, action.noteId).pipe(
                     map(note => boardActions.deleteNoteSuccess({ payload: note })),
                     catchError(error => of(boardActions.deleteNoteFailure({ error })))
                 ),
@@ -91,6 +110,5 @@ export class BoardsEffects {
     );
     /* #endregion */
 
-    /* #endregion */
-
+    //#endregion ################################################################################################
 }

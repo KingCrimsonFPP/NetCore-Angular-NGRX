@@ -14,6 +14,11 @@ export class NoteService
       return this.http.post<Note>(endpoint,model);
     }
 
+    public Patch(boardId: number, model:Note) : Observable<Note>
+    {
+      var endpoint = this.baseUrl+'api/board/'+boardId+'/notes';
+      return this.http.patch<Note>(endpoint,model);
+    }
     public GetAll(boardId: number) : Observable<Note[]>
     {
       var endpoint=this.baseUrl+'api/board/'+boardId+'/notes';
