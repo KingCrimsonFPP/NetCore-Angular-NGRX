@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using NetCoreAngularNgrx.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Diagnostics;
 
 namespace NetCoreAngularNgrx.Controllers.Common
 {
@@ -19,7 +20,8 @@ namespace NetCoreAngularNgrx.Controllers.Common
         [HttpGet("all")]
         public virtual IEnumerable<T> GetAll()
         {
-            return DataRepository.GetAll();
+            var result = DataRepository.GetAll();
+            return result;
         }
 
         [HttpGet("{id}")]
@@ -27,7 +29,8 @@ namespace NetCoreAngularNgrx.Controllers.Common
         {
             ValidateId(id);
 
-            return DataRepository.Get(id);
+            var result = DataRepository.Get(id);
+            return result;
         }
 
         [HttpDelete("{id}")]
@@ -35,19 +38,22 @@ namespace NetCoreAngularNgrx.Controllers.Common
         {
             ValidateId(id);
 
-            return DataRepository.Delete(id);
+            var result = DataRepository.Delete(id);
+            return result;
         }
 
         [HttpPost]
         public virtual T Add(T T)
         {
-            return DataRepository.Add(T);
+            var result = DataRepository.Add(T);
+            return result;
         }
 
         [HttpPatch]
         public virtual T Update(T T)
         {
-            return DataRepository.Update(T);
+            var result = DataRepository.Update(T);
+            return result;
         }
     }
 }

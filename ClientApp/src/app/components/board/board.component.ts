@@ -7,7 +7,7 @@ import {
   BoardsStoreSelectors,
   BoardsStoreActions,
 } from "src/app/root-store";
-import { Observable } from "rxjs";
+import { Observable, Subscription } from "rxjs";
 
 @Component({
   selector: "app-board",
@@ -16,29 +16,53 @@ import { Observable } from "rxjs";
 })
 export class BoardComponent implements OnInit {
   @Input() boardId: number;
+
   board$: Observable<Board>;
   error$: Observable<any>;
   isLoading$: Observable<boolean>;
 
-  constructor(private store$: Store<RootStoreState.RootState>) {}
+  editedTitle: string;
+
+  constructor(private store$: Store<RootStoreState.RootState>) { }
 
   ngOnInit() {
-    this.board$ = this.store$.select(
-      BoardsStoreSelectors.selectBoard(this.boardId)
-    );
+    this.board$ = this.store$.select(BoardsStoreSelectors.selectBoard(this.boardId));
 
     this.error$ = this.store$.select(BoardsStoreSelectors.selectError);
 
     this.isLoading$ = this.store$.select(BoardsStoreSelectors.selectIsLoading);
   }
 
-  addNote() {
+  refresh() {
+    this.store$.dispatch(BoardsStoreActions.loadRequest());
+  }
+
+  addNote(model: Board) {
     this.store$.dispatch(
-      BoardsStoreActions.addNewNote({boardId: this.boardId})
+      BoardsStoreActions.addNewNote({ boardId: model.Id })
     );
   }
 
-  deleteBoard() {
-    this.store$.dispatch(BoardsStoreActions.deleteBoardRequest({ id: this.boardId }));
+  cancelBoard(model: Board) {
+    if (model.IsNew) {
+      this.store$.dispatch(BoardsStoreActions.removeNewBoard({ id: model.Id }));
+    }
+    else if (model.EditMode) {
+      this.store$.dispatch(BoardsStoreActions.cancelEditBoard({ id: model.Id }));
+    }
+  }
+
+  editBoard(model: Board) {
+    this.editedTitle = model.Title;
+    this.store$.dispatch(BoardsStoreActions.editBoard({ id: model.Id }));
+  }
+
+  saveBoard(model: Board) {
+    model = { ...model, Title: this.editedTitle };
+    this.store$.dispatch(BoardsStoreActions.saveBoardRequest({ payload: model }));
+  }
+
+  deleteBoard(model: Board) {
+    this.store$.dispatch(BoardsStoreActions.deleteBoardRequest({ id: model.Id }));
   }
 }

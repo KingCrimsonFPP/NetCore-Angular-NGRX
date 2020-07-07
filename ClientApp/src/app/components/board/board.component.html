@@ -1,27 +1,41 @@
 <div class="col-md-4 col-sm-6 bg-info">
-  <h3>BoardComponent: {{( board$ | async) | json}}</h3>
+  <h3>BoardComponent:</h3><span> {{( board$ | async) | json}}</span>
 </div>
 
 <div class="col-md-4 col-sm-6" *ngIf="(board$ | async) as boardModel">
   <div class="card">
     <h3 class="card-header">
-      {{ boardModel.Title }}
-      <div class="text-muted">
+      <div *ngIf="!boardModel.EditMode" class="lbl-text-postit">
+        {{ boardModel.Title }}
+      </div>
+      <textarea class="form-control p-1 input-text-postit" *ngIf="boardModel.EditMode"
+        [(ngModel)]="editedTitle"></textarea>
+      <div *ngIf="!boardModel.IsNew" class="text-muted postit-created-date">
         <small>Created {{ boardModel.Date | date: short }}</small>
       </div>
-      <div class="btn btn-sm btn-primary btn-add-note" (click)="addNote()">
-        Add
-      </div>
-      <div class="btn btn-sm btn-danger btn-delete-board ml-1" (click)="deleteBoard()">
-        Delete
+
+      <div>
+        <span *ngIf="!boardModel.EditMode" class="btn btn-sm btn-primary btn-add-note mr-1" 
+          (click)="addNote(boardModel)">Add
+          Note</span>
+
+        <span *ngIf="!boardModel.EditMode && !boardModel.IsNew" class="btn btn-sm btn-primary btn-add-note mr-1"
+          (click)="editBoard(boardModel)">Edit Board</span>
+
+        <span *ngIf="boardModel.EditMode" class="btn-save-postit btn btn-primary btn-sm mr-1"
+          (click)="saveBoard(boardModel)">Save</span>
+
+        <span *ngIf="boardModel.EditMode" class="btn-cancel-postit btn btn-primary btn-sm mr-1"
+          (click)="cancelBoard(boardModel)">Cancel</span>
+
+        <span *ngIf="!boardModel.IsNew && !boardModel.EditMode" class="btn btn-sm btn-danger btn-delete-board mr-1"
+          (click)="deleteBoard(boardModel)">Delete</span>
       </div>
     </h3>
     <div class="card-body">
       <div class="row">
-        {{boardModel.Notes | json}}
-        {{boardModel.Notes }}
-
-        <app-note *ngFor="let note of (boardModel.Notes | sortBy:'asc': 'Id')" [boardId]="boardModel.Id" [noteId]="note.Id"></app-note>
+        <app-note *ngFor="let note of (boardModel.Notes | sortBy:'asc': 'Id')" [boardId]="boardModel.Id"
+          [noteId]="note.Id"></app-note>
       </div>
     </div>
   </div>

@@ -14,7 +14,7 @@ namespace NetCoreAngularNgrx.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Title = table.Column<string>(maxLength: 50, nullable: true),
-                    Date = table.Column<DateTime>(nullable: false, defaultValue: new DateTime(2020, 7, 2, 14, 32, 34, 727, DateTimeKind.Local).AddTicks(5512))
+                    Date = table.Column<DateTime>(nullable: false, defaultValue: new DateTime(2020, 7, 6, 8, 2, 53, 426, DateTimeKind.Local).AddTicks(8439))
                 },
                 constraints: table =>
                 {
@@ -44,7 +44,7 @@ namespace NetCoreAngularNgrx.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Title = table.Column<string>(maxLength: 50, nullable: true),
                     Description = table.Column<string>(nullable: true),
-                    Date = table.Column<DateTime>(nullable: false, defaultValue: new DateTime(2020, 7, 2, 14, 32, 34, 724, DateTimeKind.Local).AddTicks(5819)),
+                    Date = table.Column<DateTime>(nullable: false, defaultValue: new DateTime(2020, 7, 6, 8, 2, 53, 423, DateTimeKind.Local).AddTicks(4786)),
                     BoardId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -76,52 +76,52 @@ namespace NetCoreAngularNgrx.Migrations
             migrationBuilder.InsertData(
                 table: "WeatherForecasts",
                 columns: new[] { "Id", "Date", "Summary", "TemperatureC" },
-                values: new object[] { 1, new DateTime(2020, 7, 2, 14, 32, 34, 715, DateTimeKind.Local).AddTicks(3137), "Freezing", 0 });
+                values: new object[] { 1, new DateTime(2020, 7, 6, 8, 2, 53, 408, DateTimeKind.Local).AddTicks(6177), "Freezing", 0 });
 
             migrationBuilder.InsertData(
                 table: "WeatherForecasts",
                 columns: new[] { "Id", "Date", "Summary", "TemperatureC" },
-                values: new object[] { 2, new DateTime(2020, 7, 2, 14, 32, 34, 719, DateTimeKind.Local).AddTicks(731), "Bracing", 5 });
+                values: new object[] { 2, new DateTime(2020, 7, 6, 8, 2, 53, 415, DateTimeKind.Local).AddTicks(1595), "Bracing", 5 });
 
             migrationBuilder.InsertData(
                 table: "WeatherForecasts",
                 columns: new[] { "Id", "Date", "Summary", "TemperatureC" },
-                values: new object[] { 3, new DateTime(2020, 7, 2, 14, 32, 34, 719, DateTimeKind.Local).AddTicks(916), "Chilly", 10 });
+                values: new object[] { 3, new DateTime(2020, 7, 6, 8, 2, 53, 415, DateTimeKind.Local).AddTicks(1683), "Chilly", 10 });
 
             migrationBuilder.InsertData(
                 table: "WeatherForecasts",
                 columns: new[] { "Id", "Date", "Summary", "TemperatureC" },
-                values: new object[] { 4, new DateTime(2020, 7, 2, 14, 32, 34, 719, DateTimeKind.Local).AddTicks(922), "Cool", 15 });
+                values: new object[] { 4, new DateTime(2020, 7, 6, 8, 2, 53, 415, DateTimeKind.Local).AddTicks(1693), "Cool", 15 });
 
             migrationBuilder.InsertData(
                 table: "WeatherForecasts",
                 columns: new[] { "Id", "Date", "Summary", "TemperatureC" },
-                values: new object[] { 5, new DateTime(2020, 7, 2, 14, 32, 34, 719, DateTimeKind.Local).AddTicks(926), "Mild", 20 });
+                values: new object[] { 5, new DateTime(2020, 7, 6, 8, 2, 53, 415, DateTimeKind.Local).AddTicks(1699), "Mild", 20 });
 
             migrationBuilder.InsertData(
                 table: "WeatherForecasts",
                 columns: new[] { "Id", "Date", "Summary", "TemperatureC" },
-                values: new object[] { 6, new DateTime(2020, 7, 2, 14, 32, 34, 719, DateTimeKind.Local).AddTicks(930), "Warm", 25 });
+                values: new object[] { 6, new DateTime(2020, 7, 6, 8, 2, 53, 415, DateTimeKind.Local).AddTicks(1708), "Warm", 25 });
 
             migrationBuilder.InsertData(
                 table: "WeatherForecasts",
                 columns: new[] { "Id", "Date", "Summary", "TemperatureC" },
-                values: new object[] { 7, new DateTime(2020, 7, 2, 14, 32, 34, 719, DateTimeKind.Local).AddTicks(933), "Balmy", 27 });
+                values: new object[] { 7, new DateTime(2020, 7, 6, 8, 2, 53, 415, DateTimeKind.Local).AddTicks(1714), "Balmy", 27 });
 
             migrationBuilder.InsertData(
                 table: "WeatherForecasts",
                 columns: new[] { "Id", "Date", "Summary", "TemperatureC" },
-                values: new object[] { 8, new DateTime(2020, 7, 2, 14, 32, 34, 719, DateTimeKind.Local).AddTicks(936), "Hot", 30 });
+                values: new object[] { 8, new DateTime(2020, 7, 6, 8, 2, 53, 415, DateTimeKind.Local).AddTicks(1720), "Hot", 30 });
 
             migrationBuilder.InsertData(
                 table: "WeatherForecasts",
                 columns: new[] { "Id", "Date", "Summary", "TemperatureC" },
-                values: new object[] { 9, new DateTime(2020, 7, 2, 14, 32, 34, 719, DateTimeKind.Local).AddTicks(939), "Sweltering", 35 });
+                values: new object[] { 9, new DateTime(2020, 7, 6, 8, 2, 53, 415, DateTimeKind.Local).AddTicks(1726), "Sweltering", 35 });
 
             migrationBuilder.InsertData(
                 table: "WeatherForecasts",
                 columns: new[] { "Id", "Date", "Summary", "TemperatureC" },
-                values: new object[] { 10, new DateTime(2020, 7, 2, 14, 32, 34, 719, DateTimeKind.Local).AddTicks(943), "Scorching", 40 });
+                values: new object[] { 10, new DateTime(2020, 7, 6, 8, 2, 53, 415, DateTimeKind.Local).AddTicks(1732), "Scorching", 40 });
 
             migrationBuilder.InsertData(
                 table: "Notes",

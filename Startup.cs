@@ -1,7 +1,10 @@
+using System.Text.Json;
+using System.Threading.Tasks;
 using NetCoreAngularNgrx.Common;
 using NetCoreAngularNgrx.Repositories.Common;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,7 +27,8 @@ namespace NetCoreAngularNgrx
             StartupRepositories.AddRepositories(services);
             StartupSwagger.AddSwaggerServices(services);
             services.AddControllersWithViews()
-                .AddJsonOptions(opt => opt.JsonSerializerOptions.PropertyNamingPolicy = null);
+                .AddJsonOptions(opt => opt.JsonSerializerOptions.PropertyNamingPolicy = null)
+                ;
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>

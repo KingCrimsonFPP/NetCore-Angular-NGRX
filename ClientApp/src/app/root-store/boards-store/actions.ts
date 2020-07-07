@@ -22,6 +22,20 @@ export const addNewBoard = createAction(
 );
 /* #endregion */
 
+/* #region EDIT BOARD */
+export const editBoard = createAction(
+  "[Board] Edit",
+  props<{ id: number }>()
+);
+/* #endregion */
+
+/* #region EDIT BOARD */
+export const cancelEditBoard = createAction(
+  "[Board] Cancel Edit",
+  props<{ id: number }>()
+);
+/* #endregion */
+
 /* #region SAVE BOARD */
 export const saveBoardRequest = createAction(
   "[Board] Save",
@@ -39,8 +53,8 @@ export const saveBoardSuccess = createAction(
 );
 /* #endregion */
 
-/* #region REMOVE BOARD */
-export const removeBoardRequest = createAction(
+/* #region REMOVE NEW BOARD */
+export const removeNewBoard = createAction(
   "[Board] Remove",
   props<{ id: number }>()
 );
@@ -63,10 +77,24 @@ export const deleteBoardSuccess = createAction(
 );
 /* #endregion */
 
-/* #region ADD NOTE */
+/* #region ADD NEW NOTE */
 export const addNewNote = createAction(
   "[Note] Add",
   props<{ boardId: number }>()
+);
+/* #endregion */
+
+/* #region EDIT NOTE */
+export const editNote = createAction(
+  "[Note] Edit",
+  props<{ boardId: number, noteId: number }>()
+);
+/* #endregion */
+
+/* #region EDIT NOTE */
+export const cancelEditNote = createAction(
+  "[Note] Cancel Edit",
+  props<{ boardId: number, noteId: number }>()
 );
 /* #endregion */
 
@@ -87,7 +115,7 @@ export const saveNoteSuccess = createAction(
 );
 /* #endregion */
 
-/* #region REMOVE NOTE*/
+/* #region REMOVE NEW NOTE*/
 export const removeNewNote = createAction(
   "[Note] Remove",
   props<{ boardId: number, noteId: number }>()

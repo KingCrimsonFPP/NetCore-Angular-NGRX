@@ -1,5 +1,5 @@
 import { Note } from "./note.model";
-import { IEditable } from "./editable.interface";
+import { IEditable } from "./ieditable.interface";
 
 export class Board implements IEditable
 {
@@ -10,6 +10,6 @@ export class Board implements IEditable
     
     // IEditable
     public EditMode: boolean;
-    public New: boolean;
-    public NewId: number | null;
+    public IsNew: boolean;
+    public IsSaving: boolean;
 }

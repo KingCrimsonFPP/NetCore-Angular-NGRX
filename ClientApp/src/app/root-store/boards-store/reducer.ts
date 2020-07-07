@@ -4,6 +4,7 @@ import * as noteActions from "./actions";
 import { RandomId } from "src/app/common/random-id-generator";
 import { Note } from "src/app/models/note.model";
 import { Board } from "src/app/models/board.model";
+import { IEditable } from "src/app/models/ieditable.interface";
 
 export const boardsFeatureKey = "boards";
 
@@ -20,62 +21,173 @@ const boardsReducer = createReducer(
   //#region  REDUCERS => BOARD ################################################################################
 
   //#region  LOAD BOARD 
-  on(noteActions.loadRequest, genericRequestReducer),
-  on(noteActions.loadFailure, genericFailureReducer),
-  on(noteActions.loadSuccess, (state, action) => ({
-    ...state,
-    boards: [...action.payload],
-    isLoading: false,
-    errorMessage: null,
-  })),
+  on(noteActions.loadRequest, (state: BoardsState) => {
+    var result = {
+      ...state,
+      isLoading: true,
+      error: null,
+    };
+    return result;
+  }),
+  on(noteActions.loadFailure, (state: BoardsState, payload) => {
+    var result = {
+      ...state,
+      isLoading: false,
+      error: payload.error,
+    };
+    return result;
+  }),
+  on(noteActions.loadSuccess, (state, action) => {
+    var result = {
+      ...state,
+      boards: [...action.payload],
+      isLoading: false,
+      errorMessage: null,
+    };
+    return result;
+  }),
   //#endregion 
 
-  //#region  ADD BOARD 
+  //#region  ADD NEW BOARD 
   on(noteActions.addNewBoard, (state, action) => {
 
     var randomId = RandomId.Generate();
     var newBoard: Board =
     {
       Id: -randomId,
-      NewId: -randomId,
-      New: true,
+      IsNew: true,
       EditMode: true,
       Title: `New Board #${randomId}`,
       Date: new Date(),
-      Notes: []
+      Notes: [],
+      IsSaving: false
     };
 
-    return {
+    var result = {
       ...state,
       boards: [...state.boards, newBoard],
       isLoading: false,
       errorMessage: null,
     };
+
+    return result;
+  }),
+  //#endregion 
+
+  //#region  EDIT BOARD 
+  on(noteActions.editBoard, (state, action) => {
+    var result = {
+      ...state,
+      boards:
+        [
+          ...allButAffectedBoards(state, action.id),
+          {
+            ...affectedBoard(state, action.id),
+            EditMode: true
+          }
+        ],
+      isLoading: false,
+      errorMessage: null,
+    };
+
+    return result;
+  }),
+  //#endregion 
+
+  //#region  CANCEL EDIT BOARD 
+  on(noteActions.cancelEditBoard, (state, action) => {
+    var result = {
+      ...state,
+      boards:
+        [
+          ...allButAffectedBoards(state, action.id),
+          {
+            ...affectedBoard(state, action.id),
+            EditMode: false
+          }
+        ],
+      isLoading: false,
+      errorMessage: null,
+    };
+
+    return result;
+  }),
+  //#endregion 
+
+  //#region  REMOVE BOARD 
+  on(noteActions.removeNewBoard, (state, action) => {
+    var result = {
+      ...state,
+      boards: [...allButAffectedBoards(state, action.id)],
+      isLoading: false,
+      errorMessage: null,
+    };
+    return result;
   }),
   //#endregion 
 
   //#region  SAVE BOARD 
-  on(noteActions.saveBoardRequest, genericRequestReducer),
-  on(noteActions.saveBoardFailure, genericFailureReducer),
+  on(noteActions.saveBoardRequest, (state: BoardsState, action) => {
+    var result = {
+      ...state,
+      boards:
+        [
+          ...allButAffectedBoards(state, action.payload.Id),
+          {
+            ...action.payload,
+            IsSaving: true
+          }
+        ],
+      isLoading: true,
+      error: null,
+    };
+    return result;
+  }),
+  on(noteActions.saveBoardFailure, (state: BoardsState, payload) => {
+    var result = {
+      ...state,
+      isLoading: false,
+      error: payload.error,
+    };
+    return result;
+  }),
   on(noteActions.saveBoardSuccess, (state, action) => {
-    return {
+    var result = {
       ...state,
       boards: [...allButAffectedBoards(state, action.payload.Id), action.payload],
       isLoading: false,
       errorMessage: null,
     };
+    return result;
   }),
   //#endregion 
 
   //#region  DELETE BOARD 
-  on(noteActions.deleteBoardRequest, genericRequestReducer),
-  on(noteActions.deleteBoardFailure, genericFailureReducer),
-  on(noteActions.deleteBoardSuccess, (state, action) => ({
-    ...state,
-    boards: state.boards.filter((item, index) => index !== action.payload.Id),
-    isLoading: false,
-    errorMessage: null,
-  })),
+  on(noteActions.deleteBoardRequest, (state: BoardsState) => {
+    var result = {
+      ...state,
+      isLoading: true,
+      error: null,
+    };
+    return result;
+  }),
+  on(noteActions.deleteBoardFailure, (state: BoardsState, payload) => {
+    var result = {
+      ...state,
+      isLoading: false,
+      error: payload.error,
+    };
+    return result;
+  }),
+  on(noteActions.deleteBoardSuccess, (state, action) => {
+    var result = {
+      ...state,
+      boards: allButAffectedBoards(state, action.payload.Id),
+      isLoading: false,
+      errorMessage: null,
+    };
+    return result;
+  }),
   //#endregion 
 
   //#endregion
@@ -88,16 +200,16 @@ const boardsReducer = createReducer(
     var newNote: Note =
     {
       Id: -randomId,
-      NewId: -randomId,
-      New: true,
+      IsNew: true,
       EditMode: true,
       Title: null,
       Description: null,
       BoardId: action.boardId,
       Date: new Date(),
+      IsSaving: false
     };
 
-    return {
+    var result = {
       ...state,
       boards: [
         ...allButAffectedBoards(state, action.boardId),
@@ -109,14 +221,67 @@ const boardsReducer = createReducer(
       isLoading: false,
       errorMessage: null,
     };
+    return result;
   }),
   //#endregion
 
+  //#region  EDIT NOTE 
+  on(noteActions.editNote, (state, action) => {
+    var result = {
+      ...state,
+      boards:
+        [
+          ...allButAffectedBoards(state, action.boardId),
+          {
+            ...affectedBoard(state, action.boardId),
+            Notes:
+              [
+                ...allButAffectedNotes(state, action.boardId, action.noteId),
+                {
+                  ...affectedNote(state, action.boardId, action.noteId),
+                  EditMode: true
+                }
+              ]
+          }
+        ],
+      isLoading: false,
+      errorMessage: null,
+    };
+
+    return result;
+  }),
+  //#endregion 
+
+  //#region CANCEL EDIT NOTE 
+  on(noteActions.cancelEditNote, (state, action) => {
+    var result = {
+      ...state,
+      boards:
+        [
+          ...allButAffectedBoards(state, action.boardId),
+          {
+            ...affectedBoard(state, action.boardId),
+            Notes:
+              [
+                ...allButAffectedNotes(state, action.boardId, action.noteId),
+                {
+                  ...affectedNote(state, action.boardId, action.noteId),
+                  EditMode: false
+                }
+              ]
+          }
+        ],
+      isLoading: false,
+      errorMessage: null,
+    };
+
+    return result;
+  }),
+  //#endregion 
+
   // #region REMOVE NEW NOTE
   on(noteActions.removeNewNote, (state, action) => {
-
-
-    return {
+    var result = {
       ...state,
       boards: [
         ...allButAffectedBoards(state, action.boardId),
@@ -128,14 +293,44 @@ const boardsReducer = createReducer(
       isLoading: false,
       errorMessage: null,
     };
+    return result;
   }),
   //#endregion
 
   //#region  SAVE NOTE 
-  on(noteActions.saveNoteRequest, genericRequestReducer),
-  on(noteActions.saveNoteFailure, genericFailureReducer),
+  on(noteActions.saveNoteRequest, (state: BoardsState, action) => {
+    var result = {
+      ...state,
+      boards:
+        [
+          ...allButAffectedBoards(state, action.payload.BoardId),
+          {
+            ...affectedBoard(state, action.payload.BoardId),
+            Notes:
+              [
+                ...allButAffectedNotes(state, action.payload.BoardId, action.payload.Id),
+                {
+                  ...action.payload,
+                  IsSaving: true
+                }
+              ]
+          }
+        ],
+      isLoading: true,
+      error: null,
+    };
+    return result;
+  }),
+  on(noteActions.saveNoteFailure, (state: BoardsState, payload) => {
+    var result = {
+      ...state,
+      isLoading: false,
+      error: payload.error,
+    };
+    return result;
+  }),
   on(noteActions.saveNoteSuccess, (state, action) => {
-    return {
+    var result = {
       ...state,
       boards: [
         ...allButAffectedBoards(state, action.payload.BoardId),
@@ -147,14 +342,29 @@ const boardsReducer = createReducer(
       isLoading: false,
       errorMessage: null,
     };
+    return result;
   }),
   //#endregion 
 
   //#region  DELETE NOTE 
-  on(noteActions.deleteNoteRequest, genericRequestReducer),
-  on(noteActions.deleteNoteFailure, genericFailureReducer),
+  on(noteActions.deleteNoteRequest, (state: BoardsState) => {
+    var result = {
+      ...state,
+      isLoading: true,
+      error: null,
+    };
+    return result;
+  }),
+  on(noteActions.deleteNoteFailure, (state: BoardsState, action) => {
+    var result = {
+      ...state,
+      isLoading: false,
+      error: action.error,
+    };
+    return result;
+  }),
   on(noteActions.deleteNoteSuccess, (state, action) => {
-    return {
+    var result = {
       ...state,
       boards: [
         ...allButAffectedBoards(state, action.payload.BoardId),
@@ -166,31 +376,16 @@ const boardsReducer = createReducer(
       isLoading: false,
       errorMessage: null,
     };
+    return result;
   })
   //#endregion 
 
   //#endregion 
 );
 
-//#region HELPERS FUNCTIONS
-function genericRequestReducer(state: BoardsState): BoardsState {
-  return {
-    ...state,
-    isLoading: true,
-    error: null,
-  };
-}
-
-function genericFailureReducer(state: BoardsState, action): BoardsState {
-  return {
-    ...state,
-    isLoading: false,
-    error: action.error,
-  };
-}
-
 function allButAffectedBoards(state: BoardsState, boardId: number): Board[] {
-  return state.boards.filter((board) => board.Id !== boardId);
+  var result = state.boards.filter((board) => board.Id !== boardId && excludePersisted(board));
+  return result;
 }
 
 function affectedBoard(state: BoardsState, boardId: number): Board {
@@ -199,12 +394,21 @@ function affectedBoard(state: BoardsState, boardId: number): Board {
 
 function affectedBoardNotesList(state: BoardsState, boardId: number): Note[] {
   var board = affectedBoard(state, boardId);
-  return board.Notes ? board.Notes : [];
+  var result = board.Notes ? board.Notes : [];
+  return result;
 }
 
 function allButAffectedNotes(state: BoardsState, boardId: number, noteId: number): Note[] {
   var board = affectedBoard(state, boardId);
   var notes = board.Notes ? board.Notes : [];
-  return notes.filter((note) => note.Id !== noteId);
+  return notes.filter((note) => note.Id !== noteId && excludePersisted(board));
+}
+
+function affectedNote(state: BoardsState, boardId: number, noteId: number): Note {
+  return affectedBoardNotesList(state, boardId).find((note) => note.Id === noteId);
+}
+
+function excludePersisted(model: IEditable) {
+  return !(model.IsSaving && (model.EditMode || model.IsNew));
 }
 //#endregion
