@@ -26,7 +26,7 @@ namespace NetCoreAngularNgrx.Migrations
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnName("Date")
                         .HasColumnType("TEXT")
-                        .HasDefaultValue(new DateTime(2020, 7, 6, 8, 2, 53, 426, DateTimeKind.Local).AddTicks(8439));
+                        .HasDefaultValue(new DateTime(2020, 7, 8, 15, 17, 15, 78, DateTimeKind.Local).AddTicks(2885));
 
                     b.Property<string>("Title")
                         .HasColumnType("TEXT")
@@ -34,26 +34,26 @@ namespace NetCoreAngularNgrx.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Boards");
+                    b.ToTable("Board");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
                             Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Board #1"
+                            Title = "Board1"
                         },
                         new
                         {
                             Id = 2,
                             Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Board #2"
+                            Title = "Board2"
                         },
                         new
                         {
                             Id = 3,
                             Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Board #3"
+                            Title = "Board3"
                         });
                 });
 
@@ -70,7 +70,7 @@ namespace NetCoreAngularNgrx.Migrations
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnName("Date")
                         .HasColumnType("TEXT")
-                        .HasDefaultValue(new DateTime(2020, 7, 6, 8, 2, 53, 423, DateTimeKind.Local).AddTicks(4786));
+                        .HasDefaultValue(new DateTime(2020, 7, 8, 15, 17, 15, 81, DateTimeKind.Local).AddTicks(9679));
 
                     b.Property<string>("Description")
                         .HasColumnType("TEXT");
@@ -83,7 +83,7 @@ namespace NetCoreAngularNgrx.Migrations
 
                     b.HasIndex("BoardId");
 
-                    b.ToTable("Notes");
+                    b.ToTable("Note");
 
                     b.HasData(
                         new
@@ -119,70 +119,70 @@ namespace NetCoreAngularNgrx.Migrations
                         new
                         {
                             Id = 1,
-                            Date = new DateTime(2020, 7, 6, 8, 2, 53, 408, DateTimeKind.Local).AddTicks(6177),
+                            Date = new DateTime(2020, 7, 8, 15, 17, 15, 65, DateTimeKind.Local).AddTicks(6193),
                             Summary = "Freezing",
                             TemperatureC = 0
                         },
                         new
                         {
                             Id = 2,
-                            Date = new DateTime(2020, 7, 6, 8, 2, 53, 415, DateTimeKind.Local).AddTicks(1595),
+                            Date = new DateTime(2020, 7, 8, 15, 17, 15, 70, DateTimeKind.Local).AddTicks(9481),
                             Summary = "Bracing",
                             TemperatureC = 5
                         },
                         new
                         {
                             Id = 3,
-                            Date = new DateTime(2020, 7, 6, 8, 2, 53, 415, DateTimeKind.Local).AddTicks(1683),
+                            Date = new DateTime(2020, 7, 8, 15, 17, 15, 70, DateTimeKind.Local).AddTicks(9587),
                             Summary = "Chilly",
                             TemperatureC = 10
                         },
                         new
                         {
                             Id = 4,
-                            Date = new DateTime(2020, 7, 6, 8, 2, 53, 415, DateTimeKind.Local).AddTicks(1693),
+                            Date = new DateTime(2020, 7, 8, 15, 17, 15, 70, DateTimeKind.Local).AddTicks(9596),
                             Summary = "Cool",
                             TemperatureC = 15
                         },
                         new
                         {
                             Id = 5,
-                            Date = new DateTime(2020, 7, 6, 8, 2, 53, 415, DateTimeKind.Local).AddTicks(1699),
+                            Date = new DateTime(2020, 7, 8, 15, 17, 15, 70, DateTimeKind.Local).AddTicks(9602),
                             Summary = "Mild",
                             TemperatureC = 20
                         },
                         new
                         {
                             Id = 6,
-                            Date = new DateTime(2020, 7, 6, 8, 2, 53, 415, DateTimeKind.Local).AddTicks(1708),
+                            Date = new DateTime(2020, 7, 8, 15, 17, 15, 70, DateTimeKind.Local).AddTicks(9607),
                             Summary = "Warm",
                             TemperatureC = 25
                         },
                         new
                         {
                             Id = 7,
-                            Date = new DateTime(2020, 7, 6, 8, 2, 53, 415, DateTimeKind.Local).AddTicks(1714),
+                            Date = new DateTime(2020, 7, 8, 15, 17, 15, 70, DateTimeKind.Local).AddTicks(9612),
                             Summary = "Balmy",
                             TemperatureC = 27
                         },
                         new
                         {
                             Id = 8,
-                            Date = new DateTime(2020, 7, 6, 8, 2, 53, 415, DateTimeKind.Local).AddTicks(1720),
+                            Date = new DateTime(2020, 7, 8, 15, 17, 15, 70, DateTimeKind.Local).AddTicks(9617),
                             Summary = "Hot",
                             TemperatureC = 30
                         },
                         new
                         {
                             Id = 9,
-                            Date = new DateTime(2020, 7, 6, 8, 2, 53, 415, DateTimeKind.Local).AddTicks(1726),
+                            Date = new DateTime(2020, 7, 8, 15, 17, 15, 70, DateTimeKind.Local).AddTicks(9623),
                             Summary = "Sweltering",
                             TemperatureC = 35
                         },
                         new
                         {
                             Id = 10,
-                            Date = new DateTime(2020, 7, 6, 8, 2, 53, 415, DateTimeKind.Local).AddTicks(1732),
+                            Date = new DateTime(2020, 7, 8, 15, 17, 15, 70, DateTimeKind.Local).AddTicks(9628),
                             Summary = "Scorching",
                             TemperatureC = 40
                         });
@@ -190,7 +190,7 @@ namespace NetCoreAngularNgrx.Migrations
 
             modelBuilder.Entity("NetCoreAngularNgrx.Common.Models.Note", b =>
                 {
-                    b.HasOne("NetCoreAngularNgrx.Common.Models.Board", "Board")
+                    b.HasOne("NetCoreAngularNgrx.Common.Models.Board", null)
                         .WithMany("Notes")
                         .HasForeignKey("BoardId")
                         .OnDelete(DeleteBehavior.Cascade)

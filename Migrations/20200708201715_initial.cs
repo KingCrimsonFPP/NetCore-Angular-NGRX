@@ -8,17 +8,17 @@ namespace NetCoreAngularNgrx.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Boards",
+                name: "Board",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Title = table.Column<string>(maxLength: 50, nullable: true),
-                    Date = table.Column<DateTime>(nullable: false, defaultValue: new DateTime(2020, 7, 6, 8, 2, 53, 426, DateTimeKind.Local).AddTicks(8439))
+                    Date = table.Column<DateTime>(nullable: false, defaultValue: new DateTime(2020, 7, 8, 15, 17, 15, 78, DateTimeKind.Local).AddTicks(2885))
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Boards", x => x.Id);
+                    table.PrimaryKey("PK_Board", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -37,113 +37,113 @@ namespace NetCoreAngularNgrx.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Notes",
+                name: "Note",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Title = table.Column<string>(maxLength: 50, nullable: true),
                     Description = table.Column<string>(nullable: true),
-                    Date = table.Column<DateTime>(nullable: false, defaultValue: new DateTime(2020, 7, 6, 8, 2, 53, 423, DateTimeKind.Local).AddTicks(4786)),
+                    Date = table.Column<DateTime>(nullable: false, defaultValue: new DateTime(2020, 7, 8, 15, 17, 15, 81, DateTimeKind.Local).AddTicks(9679)),
                     BoardId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Notes", x => x.Id);
+                    table.PrimaryKey("PK_Note", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Notes_Boards_BoardId",
+                        name: "FK_Note_Board_BoardId",
                         column: x => x.BoardId,
-                        principalTable: "Boards",
+                        principalTable: "Board",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
-                table: "Boards",
+                table: "Board",
                 columns: new[] { "Id", "Title" },
-                values: new object[] { 1, "Board #1" });
+                values: new object[] { 1, "Board1" });
 
             migrationBuilder.InsertData(
-                table: "Boards",
+                table: "Board",
                 columns: new[] { "Id", "Title" },
-                values: new object[] { 2, "Board #2" });
+                values: new object[] { 2, "Board2" });
 
             migrationBuilder.InsertData(
-                table: "Boards",
+                table: "Board",
                 columns: new[] { "Id", "Title" },
-                values: new object[] { 3, "Board #3" });
+                values: new object[] { 3, "Board3" });
 
             migrationBuilder.InsertData(
                 table: "WeatherForecasts",
                 columns: new[] { "Id", "Date", "Summary", "TemperatureC" },
-                values: new object[] { 1, new DateTime(2020, 7, 6, 8, 2, 53, 408, DateTimeKind.Local).AddTicks(6177), "Freezing", 0 });
+                values: new object[] { 1, new DateTime(2020, 7, 8, 15, 17, 15, 65, DateTimeKind.Local).AddTicks(6193), "Freezing", 0 });
 
             migrationBuilder.InsertData(
                 table: "WeatherForecasts",
                 columns: new[] { "Id", "Date", "Summary", "TemperatureC" },
-                values: new object[] { 2, new DateTime(2020, 7, 6, 8, 2, 53, 415, DateTimeKind.Local).AddTicks(1595), "Bracing", 5 });
+                values: new object[] { 2, new DateTime(2020, 7, 8, 15, 17, 15, 70, DateTimeKind.Local).AddTicks(9481), "Bracing", 5 });
 
             migrationBuilder.InsertData(
                 table: "WeatherForecasts",
                 columns: new[] { "Id", "Date", "Summary", "TemperatureC" },
-                values: new object[] { 3, new DateTime(2020, 7, 6, 8, 2, 53, 415, DateTimeKind.Local).AddTicks(1683), "Chilly", 10 });
+                values: new object[] { 3, new DateTime(2020, 7, 8, 15, 17, 15, 70, DateTimeKind.Local).AddTicks(9587), "Chilly", 10 });
 
             migrationBuilder.InsertData(
                 table: "WeatherForecasts",
                 columns: new[] { "Id", "Date", "Summary", "TemperatureC" },
-                values: new object[] { 4, new DateTime(2020, 7, 6, 8, 2, 53, 415, DateTimeKind.Local).AddTicks(1693), "Cool", 15 });
+                values: new object[] { 4, new DateTime(2020, 7, 8, 15, 17, 15, 70, DateTimeKind.Local).AddTicks(9596), "Cool", 15 });
 
             migrationBuilder.InsertData(
                 table: "WeatherForecasts",
                 columns: new[] { "Id", "Date", "Summary", "TemperatureC" },
-                values: new object[] { 5, new DateTime(2020, 7, 6, 8, 2, 53, 415, DateTimeKind.Local).AddTicks(1699), "Mild", 20 });
+                values: new object[] { 5, new DateTime(2020, 7, 8, 15, 17, 15, 70, DateTimeKind.Local).AddTicks(9602), "Mild", 20 });
 
             migrationBuilder.InsertData(
                 table: "WeatherForecasts",
                 columns: new[] { "Id", "Date", "Summary", "TemperatureC" },
-                values: new object[] { 6, new DateTime(2020, 7, 6, 8, 2, 53, 415, DateTimeKind.Local).AddTicks(1708), "Warm", 25 });
+                values: new object[] { 6, new DateTime(2020, 7, 8, 15, 17, 15, 70, DateTimeKind.Local).AddTicks(9607), "Warm", 25 });
 
             migrationBuilder.InsertData(
                 table: "WeatherForecasts",
                 columns: new[] { "Id", "Date", "Summary", "TemperatureC" },
-                values: new object[] { 7, new DateTime(2020, 7, 6, 8, 2, 53, 415, DateTimeKind.Local).AddTicks(1714), "Balmy", 27 });
+                values: new object[] { 7, new DateTime(2020, 7, 8, 15, 17, 15, 70, DateTimeKind.Local).AddTicks(9612), "Balmy", 27 });
 
             migrationBuilder.InsertData(
                 table: "WeatherForecasts",
                 columns: new[] { "Id", "Date", "Summary", "TemperatureC" },
-                values: new object[] { 8, new DateTime(2020, 7, 6, 8, 2, 53, 415, DateTimeKind.Local).AddTicks(1720), "Hot", 30 });
+                values: new object[] { 8, new DateTime(2020, 7, 8, 15, 17, 15, 70, DateTimeKind.Local).AddTicks(9617), "Hot", 30 });
 
             migrationBuilder.InsertData(
                 table: "WeatherForecasts",
                 columns: new[] { "Id", "Date", "Summary", "TemperatureC" },
-                values: new object[] { 9, new DateTime(2020, 7, 6, 8, 2, 53, 415, DateTimeKind.Local).AddTicks(1726), "Sweltering", 35 });
+                values: new object[] { 9, new DateTime(2020, 7, 8, 15, 17, 15, 70, DateTimeKind.Local).AddTicks(9623), "Sweltering", 35 });
 
             migrationBuilder.InsertData(
                 table: "WeatherForecasts",
                 columns: new[] { "Id", "Date", "Summary", "TemperatureC" },
-                values: new object[] { 10, new DateTime(2020, 7, 6, 8, 2, 53, 415, DateTimeKind.Local).AddTicks(1732), "Scorching", 40 });
+                values: new object[] { 10, new DateTime(2020, 7, 8, 15, 17, 15, 70, DateTimeKind.Local).AddTicks(9628), "Scorching", 40 });
 
             migrationBuilder.InsertData(
-                table: "Notes",
+                table: "Note",
                 columns: new[] { "Id", "BoardId", "Description", "Title" },
                 values: new object[] { 1, 1, "Random Description", "Random Title" });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Notes_BoardId",
-                table: "Notes",
+                name: "IX_Note_BoardId",
+                table: "Note",
                 column: "BoardId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Notes");
+                name: "Note");
 
             migrationBuilder.DropTable(
                 name: "WeatherForecasts");
 
             migrationBuilder.DropTable(
-                name: "Boards");
+                name: "Board");
         }
     }
 }

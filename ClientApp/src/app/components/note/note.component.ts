@@ -25,7 +25,7 @@ export class NoteComponent implements OnInit {
 
   ngOnInit() {
     this.note$ = this.store$.select(BoardsStoreSelectors.selectNote(this.boardId, this.noteId));
-
+  
     this.error$ = this.store$.select(BoardsStoreSelectors.selectError);
 
     this.isLoading$ = this.store$.select(BoardsStoreSelectors.selectIsLoading);
@@ -44,8 +44,6 @@ export class NoteComponent implements OnInit {
   deleteNote(model: Note) {
     this.store$.dispatch(BoardsStoreActions.deleteNoteRequest({ boardId: model.BoardId, noteId: model.Id }));
   }
-
-
 
   cancelNote(model: Note) {
     if (model.IsNew) {

@@ -6,7 +6,7 @@
   <div class="card">
     <h3 class="card-header">
       <div *ngIf="!boardModel.EditMode" class="lbl-text-postit">
-        {{ boardModel.Title }}
+        {{ boardModel.Id }}#{{ boardModel.Title }}
       </div>
       <textarea class="form-control p-1 input-text-postit" *ngIf="boardModel.EditMode"
         [(ngModel)]="editedTitle"></textarea>

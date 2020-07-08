@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc;
 using NetCoreAngularNgrx.Repositories;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Diagnostics;
+using System.Collections.Generic;
 
 namespace NetCoreAngularNgrx.Controllers.Common
 {
@@ -12,7 +11,7 @@ namespace NetCoreAngularNgrx.Controllers.Common
             DataRepository = dataRepository;
         }
 
-        private IDataRepository<T> DataRepository { get; }
+        protected IDataRepository<T> DataRepository { get; }
 
         protected virtual bool ValidateId(TIdType id) => true;
         protected virtual bool ValidateModel(T id) => true;

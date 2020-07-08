@@ -14,7 +14,7 @@ namespace NetCoreAngularNgrx.Repositories.Common
                 options.EnableSensitiveDataLogging(true);
             });
             services.AddScoped<IDataRepository<Note>, NoteRepository>();
-            services.AddScoped<IDataRepository<Board>, BoardRepository>();
+            services.AddScoped<IBoardRepository, BoardRepository>();
             services.AddScoped<IDataRepository<WeatherForecast>, WeatherForecastRepository>();
 
             return services;
