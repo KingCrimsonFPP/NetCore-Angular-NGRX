@@ -1,6 +1,6 @@
-<div class="col-md-4 col-sm-6 bg-info">
+<!-- <div class="col-md-4 col-sm-6 bg-info">
   <h3>BoardComponent:</h3><span> {{( board$ | async) | json}}</span>
-</div>
+</div> -->
 
 <div class="col-md-4 col-sm-6" *ngIf="(board$ | async) as boardModel">
   <div class="card">
@@ -9,7 +9,7 @@
         {{ boardModel.Id }}#{{ boardModel.Title }}
       </div>
       <textarea class="form-control p-1 input-text-postit" *ngIf="boardModel.EditMode"
-        [(ngModel)]="editedTitle"></textarea>
+        [(ngModel)]="editModel.Title"></textarea>
       <div *ngIf="!boardModel.IsNew" class="text-muted postit-created-date">
         <small>Created {{ boardModel.Date | date: short }}</small>
       </div>

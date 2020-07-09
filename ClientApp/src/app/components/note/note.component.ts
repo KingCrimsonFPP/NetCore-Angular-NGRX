@@ -4,13 +4,14 @@ import { BoardsStoreSelectors, BoardsStoreActions } from "src/app/root-store/boa
 import { Observable, Subscription } from "rxjs";
 import { Store } from "@ngrx/store";
 import { RootStoreState } from "src/app/root-store";
+import { Board } from "src/app/models/board.model";
 
 @Component({
   selector: "app-note",
   templateUrl: "./note.component.html",
   styleUrls: ["./note.component.css"],
 })
-export class NoteComponent implements OnInit {
+export class NoteComponent implements OnInit, OnDestroy {
   @Input() noteId: number;
   @Input() boardId: number;
 
@@ -18,21 +19,31 @@ export class NoteComponent implements OnInit {
   error$: Observable<any>;
   isLoading$: Observable<boolean>;
 
-  editedTitle: string;
-  editedDescription: string;
+  editModel = new Note();
 
   constructor(private store$: Store<RootStoreState.RootState>) { }
 
   ngOnInit() {
     this.note$ = this.store$.select(BoardsStoreSelectors.selectNote(this.boardId, this.noteId));
-  
+
+    this.subscription = this.note$.subscribe(model => {
+      this.editModel.Title = model.Title;
+      this.editModel.Description = model.Description;
+    });
+
     this.error$ = this.store$.select(BoardsStoreSelectors.selectError);
 
     this.isLoading$ = this.store$.select(BoardsStoreSelectors.selectIsLoading);
   }
 
-  saveNote(model: Note) {
-    model = { ...model, Title: this.editedTitle, Description: this.editedDescription };
+  subscription: Subscription;
+  ngOnDestroy() {
+    if (this.subscription)
+      this.subscription.unsubscribe();
+  }
+
+  save(model: Note) {
+    model = { ...model, Title: this.editModel.Title, Description: this.editModel.Description };
     this.store$.dispatch(
       BoardsStoreActions.saveNoteRequest({
         boardId: this.boardId,
@@ -41,11 +52,11 @@ export class NoteComponent implements OnInit {
     );
   }
 
-  deleteNote(model: Note) {
+  delete(model: Note) {
     this.store$.dispatch(BoardsStoreActions.deleteNoteRequest({ boardId: model.BoardId, noteId: model.Id }));
   }
 
-  cancelNote(model: Note) {
+  cancel(model: Note) {
     if (model.IsNew) {
       this.store$.dispatch(BoardsStoreActions.removeNewNote({ boardId: model.BoardId, noteId: model.Id }));
     }
@@ -54,9 +65,9 @@ export class NoteComponent implements OnInit {
     }
   }
 
-  editBoard(model: Note) {
-    this.editedTitle = model.Title;
-    this.editedDescription = model.Description;
+  edit(model: Note) {
+    this.editModel.Title = model.Title;
+    this.editModel.Description = model.Description;
     this.store$.dispatch(BoardsStoreActions.editNote({ boardId: model.BoardId, noteId: model.Id }));
   }
 
