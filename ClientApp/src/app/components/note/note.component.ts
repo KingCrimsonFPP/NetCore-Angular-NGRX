@@ -27,8 +27,10 @@ export class NoteComponent implements OnInit, OnDestroy {
     this.note$ = this.store$.select(BoardsStoreSelectors.selectNote(this.boardId, this.noteId));
 
     this.subscription = this.note$.subscribe(model => {
-      this.editModel.Title = model.Title;
-      this.editModel.Description = model.Description;
+      if (!!model) {
+        this.editModel.Title = model.Title;
+        this.editModel.Description = model.Description;
+      }
     });
 
     this.error$ = this.store$.select(BoardsStoreSelectors.selectError);

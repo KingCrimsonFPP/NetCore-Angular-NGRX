@@ -28,7 +28,11 @@ export class BoardComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.board$ = this.store$.select(BoardsStoreSelectors.selectBoard(this.boardId));
 
-    this.subscription = this.board$.subscribe(model => this.editModel.Title = model.Title);
+    this.subscription = this.board$.subscribe(model => {
+      if (!!model) {
+        this.editModel.Title = model.Title;
+      }
+    });
 
     this.error$ = this.store$.select(BoardsStoreSelectors.selectError);
 
