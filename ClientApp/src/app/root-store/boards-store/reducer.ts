@@ -56,7 +56,7 @@ const boardsReducer = createReducer(
       Id: -randomId,
       IsNew: true,
       EditMode: true,
-      Title: `New Board #${randomId}`,
+      Title: `New Board`,
       Date: new Date(),
       Notes: [],
       IsSaving: false
