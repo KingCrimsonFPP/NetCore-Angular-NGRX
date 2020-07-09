@@ -5,7 +5,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
-import { HomeContainerComponent } from './containers/home/home-container.component';
 import { WeatherContainerComponent } from './containers/weather/weather-container.component';
 import { RootStoreModule } from './root-store/root-store.module';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools'
@@ -21,7 +20,6 @@ import { SortByPipe } from './common/sort-by-pipe';
   declarations: [
     AppComponent,
     NavMenuComponent,
-    HomeContainerComponent,
     CounterContainerComponent,
     NoteComponent,
     NotesContainerComponent,
@@ -34,7 +32,7 @@ import { SortByPipe } from './common/sort-by-pipe';
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot([
-      { path: '', component: HomeContainerComponent, pathMatch: 'full' },
+      { path: '', component: NotesContainerComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterContainerComponent },
       { path: 'notes', component: NotesContainerComponent },
       { path: 'weather', component: WeatherContainerComponent },
