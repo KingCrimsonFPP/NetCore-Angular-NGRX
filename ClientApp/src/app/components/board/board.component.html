@@ -2,40 +2,43 @@
   <h3>BoardComponent:</h3><span> {{( board$ | async) | json}}</span>
 </div> -->
 
-<div class="col-md-4 col-sm-6" *ngIf="(board$ | async) as boardModel">
+<div class="col-md-4 col-sm-6" *ngIf="(board$ | async) as model">
   <div class="card">
-    <h3 class="card-header">
-      <div *ngIf="!boardModel.EditMode" class="lbl-text-postit">
-        {{ boardModel.Id }}#{{ boardModel.Title }}
-      </div>
-      <textarea class="form-control p-1 input-text-postit" *ngIf="boardModel.EditMode"
-        [(ngModel)]="editModel.Title"></textarea>
-      <div *ngIf="!boardModel.IsNew" class="text-muted postit-created-date">
-        <small>Created {{ boardModel.Date | date: short }}</small>
-      </div>
+    <loader [isLoading]="model.IsLoading"></loader>
+    <error [error]="model.Error"></error>
+    <div *ngIf="!model.IsLoading">
+      <h3 class="card-header" *ngIf="!model.IsLoading">
+        <div *ngIf="!model.EditMode" class="lbl-text-postit">
+          {{ model.Id }}#{{ model.Title }}
+        </div>
+        <textarea class="form-control p-1 input-text-postit" *ngIf="model.EditMode"
+          [(ngModel)]="editModel.Title"></textarea>
+        <div *ngIf="!model.IsNew" class="text-muted postit-created-date">
+          <small>Created {{ model.Date | date: short }}</small>
+        </div>
 
-      <div>
-        <span *ngIf="!boardModel.EditMode" class="btn btn-sm btn-primary btn-add-note mr-1" 
-          (click)="addNote(boardModel)">Add
-          Note</span>
+        <div>
+          <span *ngIf="!model.EditMode" class="btn btn-sm btn-primary btn-add-note mr-1" (click)="addNote(model)">Add
+            Note</span>
 
-        <span *ngIf="!boardModel.EditMode && !boardModel.IsNew" class="btn btn-sm btn-primary btn-add-note mr-1"
-          (click)="editBoard(boardModel)">Edit Board</span>
+          <span *ngIf="!model.EditMode && !model.IsNew" class="btn btn-sm btn-primary btn-add-note mr-1"
+            (click)="editBoard(model)">Edit Board</span>
 
-        <span *ngIf="boardModel.EditMode" class="btn-save-postit btn btn-primary btn-sm mr-1"
-          (click)="saveBoard(boardModel)">Save</span>
+          <span *ngIf="model.EditMode" class="btn-save-postit btn btn-primary btn-sm mr-1"
+            (click)="saveBoard(model)">Save</span>
 
-        <span *ngIf="boardModel.EditMode" class="btn-cancel-postit btn btn-primary btn-sm mr-1"
-          (click)="cancelBoard(boardModel)">Cancel</span>
+          <span *ngIf="model.EditMode" class="btn-cancel-postit btn btn-primary btn-sm mr-1"
+            (click)="cancelBoard(model)">Cancel</span>
 
-        <span *ngIf="!boardModel.IsNew && !boardModel.EditMode" class="btn btn-sm btn-danger btn-delete-board mr-1"
-          (click)="deleteBoard(boardModel)">Delete</span>
-      </div>
-    </h3>
-    <div class="card-body">
-      <div class="row">
-        <app-note *ngFor="let note of (boardModel.Notes | sortBy:'asc': 'Id')" [boardId]="boardModel.Id"
-          [noteId]="note.Id"></app-note>
+          <span *ngIf="!model.IsNew && !model.EditMode" class="btn btn-sm btn-danger btn-delete-board mr-1"
+            (click)="deleteBoard(model)">Delete</span>
+        </div>
+      </h3>
+      <div class="card-body">
+        <div class="row">
+          <app-note *ngFor="let note of (model.Notes | sortBy:'asc': 'Id')" [boardId]="model.Id" [noteId]="note.Id">
+          </app-note>
+        </div>
       </div>
     </div>
   </div>

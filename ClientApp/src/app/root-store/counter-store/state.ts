@@ -1,12 +1,11 @@
+import { ILoadable } from "src/app/models/Interfaces/loadable.interface";
 
-export interface CounterState {
+export interface CounterState extends ILoadable {
   counter: number;
-  isLoading?: boolean;
-  error?: any;
 }
 
 export const initialState: CounterState = {
   counter: 0,
-  isLoading: false,
-  error: null,
+  IsLoading: false,
+  Error: null,
 };

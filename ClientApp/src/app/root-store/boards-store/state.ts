@@ -1,13 +1,12 @@
 import { Board } from "src/app/models/board.model";
+import { ILoadable } from "src/app/models/Interfaces/loadable.interface";
 
-export interface BoardsState {
-  boards: Board[];
-  isLoading?: boolean;
-  error?: any;
+export interface BoardsState extends ILoadable {
+  Boards: Board[];
 }
 
 export const initialState: BoardsState = {
-  isLoading: false,
-  error: null,
-  boards: [],
+  IsLoading: false,
+  Error: null,
+  Boards: [],
 };

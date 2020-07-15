@@ -6,29 +6,29 @@ const selectBoardsFeatureState = createFeatureSelector<BoardsState>(boardsFeatur
 
 export const selectError = createSelector(
     selectBoardsFeatureState,
-    state => state.error
+    state => state.Error
 );
 
 export const selectIsLoading = createSelector(
     selectBoardsFeatureState,
-    state => state.isLoading
+    state => state.IsLoading
 );
 
 export const selectBoards = createSelector(
     selectBoardsFeatureState,
-    state => state.boards
+    state => state.Boards
 );
 
 export const selectBoard = (boardId:number) => createSelector(
     selectBoardsFeatureState,
-    state => state.boards.find(x=>x.Id==boardId)
+    state => state.Boards.find(x=>x.Id==boardId)
 );
 
 export const selectNote = (boardId:number, noteId:number) => createSelector(
     selectBoardsFeatureState,
     state => 
     {
-        var board =state.boards.find(x=>x.Id==boardId);
+        var board =state.Boards.find(x=>x.Id==boardId);
         if(!board || !board.Notes || board.Notes.length == 0) return null;
         return board.Notes.find(x=>x.Id==noteId);
     }

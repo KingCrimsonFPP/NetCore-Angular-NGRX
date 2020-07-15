@@ -14,6 +14,8 @@ import { BoardComponent } from './components/board/board.component';
 import { NotesContainerComponent } from './containers/notes/notes-container.component';
 import { NoteComponent } from './components/note/note.component';
 import { SortByPipe } from './common/sort-by-pipe';
+import { ErrorComponent } from './components/error/error.component';
+import { LoaderComponent } from './components/loader/loader.component';
 
 
 @NgModule({
@@ -25,7 +27,9 @@ import { SortByPipe } from './common/sort-by-pipe';
     NotesContainerComponent,
     BoardComponent,
     WeatherContainerComponent,
-    SortByPipe
+    SortByPipe,
+    ErrorComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

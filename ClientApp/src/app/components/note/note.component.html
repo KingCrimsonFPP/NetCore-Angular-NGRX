@@ -1,45 +1,41 @@
 <!-- <div class="col-sm-12">
   <h3>NoteComponent:</h3><span> {{( note$ | async) | json}}</span>
 </div> -->
-<div *ngIf="( note$ | async) as noteModel">
+<div *ngIf="( note$ | async) as model">
   <div class="col-sm-12">
     <div class="card bg-warning postit-card">
+      <loader [isLoading]="model.IsLoading"></loader>
+      <error [error]="model.Error"></error>
       <div class="card-header">
-        <div *ngIf="!noteModel.EditMode" class="lbl-text-postit">
-          {{ noteModel.Title }}
+        <div *ngIf="!model.EditMode" class="lbl-text-postit">
+          {{ model.Title }}
         </div>
-        <textarea class="form-control p-1 input-text-postit" 
-          *ngIf="noteModel.EditMode"
+        <textarea class="form-control p-1 input-text-postit" *ngIf="model.EditMode"
           [(ngModel)]="editModel.Title"></textarea>
       </div>
       <div class="card-body">
-        <div *ngIf="!noteModel.EditMode" class="lbl-text-postit">
-          {{ noteModel.Description }}
+        <div *ngIf="!model.EditMode" class="lbl-text-postit">
+          {{ model.Description }}
         </div>
-        <textarea class="form-control p-1 input-text-postit" 
-          *ngIf="noteModel.EditMode"
+        <textarea class="form-control p-1 input-text-postit" *ngIf="model.EditMode"
           [(ngModel)]="editModel.Description"></textarea>
       </div>
       <div class="card-footer">
-        <div *ngIf="!noteModel.IsNew" class="text-muted postit-created-date">
-          <small>Created {{ noteModel.Date | date: short }}</small>
+        <div *ngIf="!model.IsNew" class="text-muted postit-created-date">
+          <small>Created {{ model.Date | date: short }}</small>
         </div>
         <div>
-          <span class="btn-save-postit btn btn-primary btn-sm mr-1"
-            *ngIf="noteModel.EditMode" 
-            (click)="save(noteModel)">Save</span>
+          <span class="btn-save-postit btn btn-primary btn-sm mr-1" *ngIf="model.EditMode"
+            (click)="save(model)">Save</span>
 
-          <span class="btn-cancel-postit btn btn-primary btn-sm mr-1"
-            *ngIf="noteModel.EditMode" 
-            (click)="cancel(noteModel)">Cancel</span>
+          <span class="btn-cancel-postit btn btn-primary btn-sm mr-1" *ngIf="model.EditMode"
+            (click)="cancel(model)">Cancel</span>
 
-          <span class="btn btn-sm btn-primary btn-add-note mr-1"
-            *ngIf="!noteModel.EditMode && !noteModel.IsNew" 
-            (click)="edit(noteModel)">Edit Note</span>
+          <span class="btn btn-sm btn-primary btn-add-note mr-1" *ngIf="!model.EditMode && !model.IsNew"
+            (click)="edit(model)">Edit Note</span>
 
-          <span class="btn-delete-postit btn btn-danger btn-sm mr-1" 
-            *ngIf="!noteModel.IsNew && !noteModel.EditMode"
-            (click)="delete(noteModel)">Delete</span>
+          <span class="btn-delete-postit btn btn-danger btn-sm mr-1" *ngIf="!model.IsNew && !model.EditMode"
+            (click)="delete(model)">Delete</span>
         </div>
       </div>
     </div>

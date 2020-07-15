@@ -22,7 +22,7 @@ export class NotesContainerComponent {
 
     this.isLoading$ = this.store$.select(BoardsStoreSelectors.selectIsLoading);
 
-    this.store$.dispatch(BoardsStoreActions.loadRequest());
+    this.store$.dispatch(BoardsStoreActions.loadBoardRequest());
   }
 
   public AddBoard()

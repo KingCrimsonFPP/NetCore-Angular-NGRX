@@ -45,7 +45,7 @@ export class BoardComponent implements OnInit, OnDestroy {
   }
 
   refresh() {
-    this.store$.dispatch(BoardsStoreActions.loadRequest());
+    this.store$.dispatch(BoardsStoreActions.loadBoardRequest());
   }
 
   addNote(model: Board) {
@@ -56,16 +56,16 @@ export class BoardComponent implements OnInit, OnDestroy {
 
   cancelBoard(model: Board) {
     if (model.IsNew) {
-      this.store$.dispatch(BoardsStoreActions.removeNewBoard({ id: model.Id }));
+      this.store$.dispatch(BoardsStoreActions.removeNewBoard({ boardId: model.Id }));
     }
     else if (model.EditMode) {
-      this.store$.dispatch(BoardsStoreActions.cancelEditBoard({ id: model.Id }));
+      this.store$.dispatch(BoardsStoreActions.cancelEditBoard({ boardId: model.Id }));
     }
   }
 
   editBoard(model: Board) {
     this.editModel.Title = model.Title
-    this.store$.dispatch(BoardsStoreActions.editBoard({ id: model.Id }));
+    this.store$.dispatch(BoardsStoreActions.editBoard({ boardId: model.Id }));
   }
 
   saveBoard(model: Board) {
@@ -74,6 +74,6 @@ export class BoardComponent implements OnInit, OnDestroy {
   }
 
   deleteBoard(model: Board) {
-    this.store$.dispatch(BoardsStoreActions.deleteBoardRequest({ id: model.Id }));
+    this.store$.dispatch(BoardsStoreActions.deleteBoardRequest({ boardId: model.Id }));
   }
 }

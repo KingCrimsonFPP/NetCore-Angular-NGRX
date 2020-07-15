@@ -5,8 +5,13 @@
             <h3>BoardComponent:</h3><span> {{( boards$ | async) | json}}</span>
         </div>
     </div> -->
-
-    <div class="row">
+    <div *ngIf="(isLoading$ | async)">
+        Loading...
+    </div>
+    <div *ngIf="(error$ | async) as error" class="text-danger">
+        {{error | json}}
+    </div>
+    <div class="row" *ngIf="!(isLoading$ | async)">
         <div class="col-12 btn btn-outline-primary btn-add-board" (click)="AddBoard()">
             Add Board
         </div>

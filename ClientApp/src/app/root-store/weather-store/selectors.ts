@@ -6,12 +6,12 @@ const selectWeathersFeatureState = createFeatureSelector<WeathersState>(weathers
 
 export const selectError = createSelector(
     selectWeathersFeatureState,
-    state => state.error
+    state => state.Error
 );
 
 export const selectIsLoading = createSelector(
     selectWeathersFeatureState,
-    state => state.isLoading
+    state => state.IsLoading
 );
 
 export const selectWeathers = createSelector(

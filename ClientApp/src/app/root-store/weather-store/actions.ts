@@ -7,7 +7,7 @@ export const loadRequest = createAction(
 
 export const loadFailure = createAction(
     '[Weathers] Load Failure',
-    props<{errorMessage: string}>()
+    props<{error: string}>()
 );
 
 export const loadSuccess = createAction(

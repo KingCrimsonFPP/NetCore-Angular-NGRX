@@ -6,14 +6,14 @@ export const weathersFeatureKey = "weathers";
 
 const weathersReducer = createReducer(
     initialState,
-    on(weatherActions.loadRequest, state => ({...state, isLoading: true, errorMessage: null})),    
-    on(weatherActions.loadFailure, state => ({...state, isLoading: false, errorMessage: null})),
+    on(weatherActions.loadRequest, state => ({...state, IsLoading: true, Error: null})),    
+    on(weatherActions.loadFailure, state => ({...state, IsLoading: false, Error: null})),
     on(weatherActions.loadSuccess, (state,action) => (
         {
             ...state,
             weathers: action.weathers,
-            isLoading: false,
-            errorMessage: null
+            IsLoading: false,
+            Error: null
         })),
 );
 

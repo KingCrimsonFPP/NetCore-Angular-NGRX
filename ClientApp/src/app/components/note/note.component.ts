@@ -74,6 +74,6 @@ export class NoteComponent implements OnInit, OnDestroy {
   }
 
   refresh() {
-    this.store$.dispatch(BoardsStoreActions.loadRequest());
+    this.store$.dispatch(BoardsStoreActions.loadBoardRequest());
   }
 }

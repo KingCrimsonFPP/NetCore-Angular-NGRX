@@ -20,7 +20,7 @@ export class WeathersEffects
             switchMap(() => 
             this.service.GetAllWeatherForecast().pipe(
                 map( weathers => weatherActions.loadSuccess({weathers})),
-                catchError(error => of(weatherActions.loadFailure({errorMessage:error})))
+                catchError(error => of(weatherActions.loadFailure({error:error})))
                 ),            
             ),
         )

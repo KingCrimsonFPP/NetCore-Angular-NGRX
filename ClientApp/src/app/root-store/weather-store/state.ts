@@ -1,13 +1,12 @@
 import { WeatherForecast } from "../../models/weather-forecast.model";
+import { ILoadable } from "src/app/models/Interfaces/loadable.interface";
 
-export interface WeathersState {
+export interface WeathersState extends ILoadable  {
   weathers: WeatherForecast[];
-  isLoading?: boolean;
-  error?: any;
 }
 
 export const initialState: WeathersState = {
-  isLoading: false,
-  error: null,
+  IsLoading: false,
+  Error: null,
   weathers: [],
 };

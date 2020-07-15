@@ -22,11 +22,11 @@ export class BoardsEffects {
     /* #region LOAD BOARD */
     loadRequest$: Observable<Action> = createEffect(() =>
         this.actions$.pipe(
-            ofType(boardActions.loadRequest),
+            ofType(boardActions.loadBoardRequest),
             switchMap(() =>
                 this.boardService.GetAll().pipe(
-                    map(boards => boardActions.loadSuccess({ payload: boards })),
-                    catchError(error => of(boardActions.loadFailure({ error })))
+                    map(boards => boardActions.loadBoardSuccess({ payload: boards })),
+                    catchError(error => of(boardActions.loadBoardFailure({ error })))
                 ),
             ),
         )
@@ -47,7 +47,11 @@ export class BoardsEffects {
                 }
                 return result$.pipe(
                     map(board => boardActions.saveBoardSuccess({ payload: board })),
-                    catchError(error => of(boardActions.loadFailure({ error })))
+                    catchError(error => of(boardActions.saveBoardFailure(
+                        { 
+                            boardId: action.payload.Id,
+                            error: error 
+                        })))
                 );
             },
             ),
@@ -60,9 +64,13 @@ export class BoardsEffects {
         this.actions$.pipe(
             ofType(boardActions.deleteBoardRequest),
             switchMap((action) =>
-                this.boardService.Delete(action.id).pipe(
+                this.boardService.Delete(action.boardId).pipe(
                     map(board => boardActions.deleteBoardSuccess({ payload: board })),
-                    catchError(error => of(boardActions.loadFailure({ error })))
+                    catchError(error => of(boardActions.deleteBoardFailure(
+                        { 
+                            boardId: action.boardId,
+                            error: error 
+                        })))
                 ),
             ),
         )
@@ -88,7 +96,11 @@ export class BoardsEffects {
                 }
                 return result$.pipe(
                     map(note => boardActions.saveNoteSuccess({ payload: note })),
-                    catchError(error => of(boardActions.saveNoteFailure({ error })))
+                    catchError(error => of(boardActions.saveNoteFailure({ 
+                        boardId: action.boardId,
+                        noteId: action.payload.Id ,
+                        error: error 
+                    })))
                 );
             },
             ),
@@ -103,7 +115,11 @@ export class BoardsEffects {
             switchMap((action) =>
                 this.noteService.Delete(action.boardId, action.noteId).pipe(
                     map(note => boardActions.deleteNoteSuccess({ payload: note })),
-                    catchError(error => of(boardActions.deleteNoteFailure({ error })))
+                    catchError(error => of(boardActions.deleteNoteFailure({ 
+                        boardId: action.boardId,
+                        noteId: action.noteId,
+                        error: error 
+                    })))
                 ),
             ),
         )

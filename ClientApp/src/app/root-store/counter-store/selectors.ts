@@ -6,12 +6,12 @@ const selectCounterFeatureState = createFeatureSelector<CounterState>(counterFea
 
 export const selectError = createSelector(
     selectCounterFeatureState,
-    state => state.error
+    state => state.Error
 );
 
 export const selectIsLoading = createSelector(
     selectCounterFeatureState,
-    state => state.isLoading
+    state => state.IsLoading
 );
 
 export const selectCounter = createSelector(

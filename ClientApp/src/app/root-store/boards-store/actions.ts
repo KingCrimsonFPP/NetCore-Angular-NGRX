@@ -3,14 +3,14 @@ import { Board } from "src/app/models/board.model";
 import { Note } from "src/app/models/note.model";
 
 /* #region LOAD BOARD */
-export const loadRequest = createAction("[Board] Load Request");
+export const loadBoardRequest = createAction("[Board] Load Request");
 
-export const loadFailure = createAction(
+export const loadBoardFailure = createAction(
   "[Board] Load Failure",
-  props<{ error: string }>()
+  props<{ error: any }>()
 );
 
-export const loadSuccess = createAction(
+export const loadBoardSuccess = createAction(
   "[Board] Load Success",
   props<{ payload: Board[] }>()
 );
@@ -25,14 +25,14 @@ export const addNewBoard = createAction(
 /* #region EDIT BOARD */
 export const editBoard = createAction(
   "[Board] Edit",
-  props<{ id: number }>()
+  props<{ boardId: number }>()
 );
 /* #endregion */
 
 /* #region EDIT BOARD */
 export const cancelEditBoard = createAction(
   "[Board] Cancel Edit",
-  props<{ id: number }>()
+  props<{ boardId: number }>()
 );
 /* #endregion */
 
@@ -44,7 +44,7 @@ export const saveBoardRequest = createAction(
 
 export const saveBoardFailure = createAction(
   "[Board] Save Failure",
-  props<{ error: string }>()
+  props<{ boardId: number, error: any }>()
 );
 
 export const saveBoardSuccess = createAction(
@@ -56,19 +56,19 @@ export const saveBoardSuccess = createAction(
 /* #region REMOVE NEW BOARD */
 export const removeNewBoard = createAction(
   "[Board] Remove",
-  props<{ id: number }>()
+  props<{ boardId: number }>()
 );
 /* #endregion */
 
 /* #region DELETE BOARD */
 export const deleteBoardRequest = createAction(
   "[Board] Delete",
-  props<{ id: number }>()
+  props<{ boardId: number }>()
 );
 
 export const deleteBoardFailure = createAction(
   "[Board] Delete Failure",
-  props<{ error: string }>()
+  props<{ boardId: number, error: any }>()
 );
 
 export const deleteBoardSuccess = createAction(
@@ -106,7 +106,7 @@ export const saveNoteRequest = createAction(
 
 export const saveNoteFailure = createAction(
   "[Note] Save Failure",
-  props<{ error: string }>()
+  props<{ boardId: number, noteId: number, error: any }>()
 );
 
 export const saveNoteSuccess = createAction(
@@ -130,7 +130,7 @@ export const deleteNoteRequest = createAction(
 
 export const deleteNoteFailure = createAction(
   "[Note] Delete Failure",
-  props<{ error: string }>()
+  props<{ boardId: number, noteId: number, error: any }>()
 );
 
 export const deleteNoteSuccess = createAction(
