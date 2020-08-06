@@ -16,5 +16,5 @@ export const selectIsLoading = createSelector(
 
 export const selectWeathers = createSelector(
     selectWeathersFeatureState,
-    state => state.weathers
+    state => state.Items
 );

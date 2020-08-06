@@ -1,12 +1,12 @@
 import { WeatherForecast } from "../../models/weather-forecast.model";
-import { ILoadable } from "src/app/models/Interfaces/loadable.interface";
+import { GenericState } from "src/app/models/Interfaces/generic-state.interface";
 
-export interface WeathersState extends ILoadable  {
-  weathers: WeatherForecast[];
+export interface WeathersState extends GenericState<WeatherForecast> {
+
 }
 
 export const initialState: WeathersState = {
   IsLoading: false,
   Error: null,
-  weathers: [],
+  Items: [],
 };

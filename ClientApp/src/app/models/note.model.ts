@@ -1,8 +1,8 @@
-import { IEditable } from "./Interfaces/editable.interface";
-import { IIdentificable } from "./Interfaces/identificable.interface";
-import { ILoadable } from "./Interfaces/loadable.interface";
+import { Editable } from "./Interfaces/editable.interface";
+import { Identificable } from "./Interfaces/identificable.interface";
+import { Loadable } from "./Interfaces/loadable.interface";
 
-export class Note implements IEditable, ILoadable, IIdentificable
+export class Note implements Editable, Loadable, Identificable
 {
     public Id: number;
     public Title:string;

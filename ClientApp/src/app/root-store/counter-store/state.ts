@@ -1,6 +1,6 @@
-import { ILoadable } from "src/app/models/Interfaces/loadable.interface";
+import { Loadable } from "src/app/models/Interfaces/loadable.interface";
 
-export interface CounterState extends ILoadable {
+export interface CounterState extends Loadable {
   counter: number;
 }
 

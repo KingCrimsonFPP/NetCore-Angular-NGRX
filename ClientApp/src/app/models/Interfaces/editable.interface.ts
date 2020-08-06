@@ -1,5 +1,4 @@
-
-export interface IEditable
+export interface Editable
 {
     EditMode: boolean;    
     IsNew: boolean;

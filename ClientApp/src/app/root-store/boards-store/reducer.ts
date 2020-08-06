@@ -41,7 +41,7 @@ const boardsReducer = createReducer(
       ...state,
       IsLoading: false,
       Error: null,
-      Boards: [...action.payload],
+      Items: [...action.payload],
     };
     return result;
   }),
@@ -66,7 +66,7 @@ const boardsReducer = createReducer(
       ...state,
       IsLoading: false,
       Error: null,
-      Boards: [...state.Boards, newBoard],
+      Items: [...state.Items, newBoard],
     };
     return result;
   }),
@@ -78,7 +78,7 @@ const boardsReducer = createReducer(
       ...state,
       IsLoading: false,
       Error: null,
-      Boards: [...h.notAffectedBoards(action.boardId, state)],
+      Items: [...h.notAffectedBoards(action.boardId, state)],
     };
     return result;
   }),
@@ -129,7 +129,7 @@ const boardsReducer = createReducer(
       ...state,
       IsLoading: false,
       Error: null,
-      Boards: [
+      Items: [
         ...h.notAffectedBoards(action.boardId, state),
         {
           ...h.affectedBoard(action.boardId, state),
@@ -147,7 +147,7 @@ const boardsReducer = createReducer(
       ...state,
       IsLoading: false,
       Error: null,
-      Boards: [
+      Items: [
         ...h.notAffectedBoards(action.boardId, state),
         {
           ...h.affectedBoard(action.boardId, state),

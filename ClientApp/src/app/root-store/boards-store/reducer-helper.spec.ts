@@ -60,7 +60,7 @@ fdescribe("ReducerHelper", () => {
     {
       IsLoading: false,
       Error: null,
-      Boards: [...defaultTestData],
+      Items: [...defaultTestData],
     };
     var output = ReducerHelper.affectedBoard(board07.Id,state)
 
@@ -76,7 +76,7 @@ fdescribe("ReducerHelper", () => {
     {
       IsLoading: false,
       Error: null,
-      Boards: [...defaultTestData],
+      Items: [...defaultTestData],
     };
     var output = ReducerHelper.notAffectedBoards(board07.Id,state)
 
@@ -109,43 +109,43 @@ fdescribe("ReducerHelper", () => {
     {
       IsLoading: false,
       Error: null,
-      Boards: testData,
+      Items: testData,
     };
     var output = ReducerHelper.genericBoardEdit(editMode/*:boolean*/, state/*:BoardsState*/, boardId/*:number*/);
 
     expect(output).toBeTruthy();
-    expect(output.Boards).toBeTruthy();
+    expect(output.Items).toBeTruthy();
       
-    expect(output.Boards).toContain(board05, 'did not contain board05');
-    var editMode05 = output.Boards.find(x=>x.Id=board05.Id).EditMode;
+    expect(output.Items).toContain(board05, 'did not contain board05');
+    var editMode05 = output.Items.find(x=>x.Id=board05.Id).EditMode;
     expect(editMode05).toEqual(true, 'board05.EditMode should be true');
   
-    expect(output.Boards).toContain(board06, 'did not contain board06');
-    var editMode06 = output.Boards.find(x=>x.Id=board06.Id).EditMode;
+    expect(output.Items).toContain(board06, 'did not contain board06');
+    var editMode06 = output.Items.find(x=>x.Id=board06.Id).EditMode;
     expect(editMode06).toEqual(false, 'board06.EditMode should be false');
   
-    expect(output.Boards).toContain(board07, 'did not contain board07');
-    var editMode07 = output.Boards.find(x=>x.Id=board07.Id).EditMode;
+    expect(output.Items).toContain(board07, 'did not contain board07');
+    var editMode07 = output.Items.find(x=>x.Id=board07.Id).EditMode;
     expect(editMode07).toEqual(false, 'board07.EditMode should be false');
   
-    expect(output.Boards).toContain(board08, 'did not contain board08');
-    var editMode08 = output.Boards.find(x=>x.Id=board08.Id).EditMode;
+    expect(output.Items).toContain(board08, 'did not contain board08');
+    var editMode08 = output.Items.find(x=>x.Id=board08.Id).EditMode;
     expect(editMode08).toEqual(false, 'board08.EditMode should be false');
    
-    expect(output.Boards).toContain(board13, 'did not contain board13');
-    var editMode13 = output.Boards.find(x=>x.Id=board13.Id).EditMode;
+    expect(output.Items).toContain(board13, 'did not contain board13');
+    var editMode13 = output.Items.find(x=>x.Id=board13.Id).EditMode;
     expect(editMode13).toEqual(false, 'board13.EditMode should be false');
 
-    expect(output.Boards).toContain(board14, 'did not contain board14');
-    var editMode14 = output.Boards.find(x=>x.Id=board14.Id).EditMode;
+    expect(output.Items).toContain(board14, 'did not contain board14');
+    var editMode14 = output.Items.find(x=>x.Id=board14.Id).EditMode;
     expect(editMode14).toEqual(false, 'board14.EditMode should be false');
    
-    expect(output.Boards).toContain(board15, 'did not contain board15');
-    var editMode15 = output.Boards.find(x=>x.Id=board15.Id).EditMode;
+    expect(output.Items).toContain(board15, 'did not contain board15');
+    var editMode15 = output.Items.find(x=>x.Id=board15.Id).EditMode;
     expect(editMode15).toEqual(false, 'board15.EditMode should be false');
   
-    expect(output.Boards).toContain(board16, 'did not contain board16');
-    var editMode16 = output.Boards.find(x=>x.Id=board16.Id).EditMode;
+    expect(output.Items).toContain(board16, 'did not contain board16');
+    var editMode16 = output.Items.find(x=>x.Id=board16.Id).EditMode;
     expect(editMode16).toEqual(false, 'board16.EditMode should be false');
 
     next();

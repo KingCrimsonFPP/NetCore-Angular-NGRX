@@ -1,12 +1,11 @@
 import { Note } from "./note.model";
-import { IEditable } from "./Interfaces/editable.interface";
-import { IIdentificable } from "./Interfaces/identificable.interface";
-import { ILoadable } from "./Interfaces/loadable.interface";
+import { Editable } from "./Interfaces/editable.interface";
+import { Identificable } from "./Interfaces/identificable.interface";
+import { Loadable } from "./Interfaces/loadable.interface";
 
 
-export class Board implements IEditable, ILoadable, IIdentificable
+export class Board implements Editable, Loadable, Identificable
 {
-    
     public Id: number;
     public Title: string;
     public Date: Date;

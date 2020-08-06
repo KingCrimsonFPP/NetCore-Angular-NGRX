@@ -1,12 +1,11 @@
 import { Board } from "src/app/models/board.model";
-import { ILoadable } from "src/app/models/Interfaces/loadable.interface";
+import { GenericState } from "src/app/models/Interfaces/generic-state.interface";
 
-export interface BoardsState extends ILoadable {
-  Boards: Board[];
+export interface BoardsState extends GenericState<Board> {
 }
 
 export const initialState: BoardsState = {
   IsLoading: false,
   Error: null,
-  Boards: [],
+  Items: [],
 };

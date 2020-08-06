@@ -1,5 +1,4 @@
-
-export interface ILoadable
+export interface Loadable
 {
     IsLoading?: boolean;
     Error?: any;

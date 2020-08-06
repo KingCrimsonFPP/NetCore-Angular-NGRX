@@ -11,7 +11,7 @@ const weathersReducer = createReducer(
     on(weatherActions.loadSuccess, (state,action) => (
         {
             ...state,
-            weathers: action.weathers,
+            Items: action.weathers,
             IsLoading: false,
             Error: null
         })),

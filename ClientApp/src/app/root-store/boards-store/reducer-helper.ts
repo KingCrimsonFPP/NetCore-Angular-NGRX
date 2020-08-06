@@ -1,13 +1,13 @@
 import { BoardsState } from "./state";
 import { Board } from "src/app/models/board.model";
 import { Note } from "src/app/models/note.model";
-import { IIdentificable } from "src/app/models/Interfaces/identificable.interface";
-import { IEditable } from "src/app/models/Interfaces/editable.interface";
-import { ILoadable } from "src/app/models/Interfaces/loadable.interface";
+import { Identificable } from "src/app/models/Interfaces/identificable.interface";
+import { Editable } from "src/app/models/Interfaces/editable.interface";
+import { Loadable } from "src/app/models/Interfaces/loadable.interface";
 
 export class ReducerHelper {
 
-    static excludeSaved<T extends IEditable & ILoadable>(models: T[]): T[] {
+    static excludeSaved<T extends Editable & Loadable>(models: T[]): T[] {
         var result = models.filter(model => !model.IsLoading || (!model.EditMode && !model.IsNew && !model.Error));
         return result;
     }
@@ -19,7 +19,7 @@ export class ReducerHelper {
     }
 
     static notAffectedBoards(boardId: number, state: BoardsState): Board[] {
-        var result = this.excludeById(boardId, state.Boards);
+        var result = this.excludeById(boardId, state.Items);
         return result;
     }
 
@@ -189,13 +189,13 @@ export class ReducerHelper {
     //#endregion NOTES
 
     //#region PRIVATE
-    private static excludeById<T extends IIdentificable>(Id: number, array: T[]): T[] {
+    private static excludeById<T extends Identificable>(Id: number, array: T[]): T[] {
         var result = array.filter((item) => item.Id !== Id);
         return result;
     }
 
     private static findBoard(boardId: number, state: BoardsState): Board {
-        return state.Boards.find((board) => board.Id === boardId);
+        return state.Items.find((board) => board.Id === boardId);
     }
 
     private static findNote(noteId: number, board: Board): Note {
