@@ -1,7 +1,7 @@
-import { Identificable } from "src/app/models/Interfaces/identificable.interface";
-import { Editable } from "src/app/models/Interfaces/editable.interface";
-import { Loadable } from "src/app/models/Interfaces/loadable.interface";
-import { GenericState } from "../models/Interfaces/generic-state.interface";
+import { Identificable } from "src/app/shared/interfaces/identificable.interface";
+import { Editable } from "src/app/shared/interfaces/editable.interface";
+import { Loadable } from "src/app/shared/interfaces/loadable.interface";
+import { GenericState } from "../shared/interfaces/generic-state.interface";
 
 export class GenericReducer<TModel extends Identificable & Loadable & Editable> {
 
@@ -11,7 +11,7 @@ export class GenericReducer<TModel extends Identificable & Loadable & Editable> 
     }
 
     affected(itemId: number, state: GenericState<TModel>): TModel {
-        var result = this.findItem(itemId, state);
+        var result = this.find(itemId, state);
         return result;
     }
 
@@ -45,7 +45,7 @@ export class GenericReducer<TModel extends Identificable & Loadable & Editable> 
         return this.genericChangeHandler(false, false, state, itemId, payload);
     }
 
-    private genericChangeHandler(isLoading: boolean, changed: boolean, state: GenericState<TModel>, itemId: number, payload: TModel): GenericState<TModel> {
+    genericChangeHandler(isLoading: boolean, changed: boolean, state: GenericState<TModel>, itemId: number, payload: TModel): GenericState<TModel> {
         var result = {
             ...state,
             IsLoading: isLoading,
@@ -80,12 +80,12 @@ export class GenericReducer<TModel extends Identificable & Loadable & Editable> 
         return result;
     }
 
-    private excludeById(Id: number, array: TModel[]): TModel[] {
+    excludeById(Id: number, array: TModel[]): TModel[] {
         var result = array.filter((item) => item.Id !== Id);
         return result;
     }
 
-    private findItem(itemId: number, state: GenericState<TModel>): TModel {
+    find(itemId: number, state: GenericState<TModel>): TModel {
         return state.Items.find((item) => item.Id === itemId);
     }
 }

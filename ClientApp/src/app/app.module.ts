@@ -13,7 +13,7 @@ import { CounterContainerComponent } from './containers/counter/counter-containe
 import { BoardComponent } from './components/board/board.component';
 import { NotesContainerComponent } from './containers/notes/notes-container.component';
 import { NoteComponent } from './components/note/note.component';
-import { SortByPipe } from './common/sort-by-pipe';
+import { SortByPipe } from './shared/sort-by-pipe';
 import { ErrorComponent } from './components/error/error.component';
 import { LoaderComponent } from './components/loader/loader.component';
 

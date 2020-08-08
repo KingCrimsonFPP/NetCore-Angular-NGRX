@@ -1,10 +1,11 @@
 import { initialState, BoardsState } from "./state";
 import { createReducer, on, Action } from "@ngrx/store";
 import * as noteActions from "./actions";
-import { RandomId } from "src/app/common/random-id-generator";
+import { RandomId } from "src/app/shared/random-id-generator";
 import { Note } from "src/app/models/note.model";
 import { Board } from "src/app/models/board.model";
-import { ReducerHelper as h } from "./reducer-helper";
+import { ReducerHelperNotes } from "./reducer-helper-notes";
+import { GenericReducer } from "../generic-reducer";
 
 export const boardsFeatureKey = "boards";
 
@@ -14,6 +15,9 @@ export function boardsFeatureReducer(
 ) {
   return boardsReducer(state, action);
 }
+
+const boards : GenericReducer<Board> = new GenericReducer<Board>(); 
+const notes: ReducerHelperNotes = new ReducerHelperNotes();
 
 const boardsReducer = createReducer(
   initialState,
@@ -78,7 +82,7 @@ const boardsReducer = createReducer(
       ...state,
       IsLoading: false,
       Error: null,
-      Items: [...h.notAffectedBoards(action.boardId, state)],
+      Items: [...boards.notAffected(action.boardId, state)],
     };
     return result;
   }),
@@ -86,22 +90,22 @@ const boardsReducer = createReducer(
 
   //#region  EDIT BOARD 
   on(noteActions.editBoard,
-    (state: BoardsState, action) => h.genericBoardEdit(true, state, action.boardId)),
+    (state: BoardsState, action) => boards.genericEdit(true, state, action.boardId)),
   on(noteActions.cancelEditBoard,
-    (state: BoardsState, action) => h.genericBoardEdit(false, state, action.boardId)),
+    (state: BoardsState, action) => boards.genericEdit(false, state, action.boardId)),
   //#endregion 
 
   //#region  SAVE BOARD 
   // genericBoardChangeRequest
-  on(noteActions.saveBoardRequest, (state: BoardsState, action) => h.genericBoardChangeRequest(state, action.payload.Id, action.payload)),
-  on(noteActions.saveBoardFailure, (state: BoardsState, action) => h.genericBoardChangeFailure(state, action.boardId, action.error)),
-  on(noteActions.saveBoardSuccess, (state: BoardsState, action) => h.genericBoardChangeSuccess(state, action.payload.Id, action.payload)),
+  on(noteActions.saveBoardRequest, (state: BoardsState, action) => boards.genericChangeRequest(state, action.payload.Id, action.payload)),
+  on(noteActions.saveBoardFailure, (state: BoardsState, action) => boards.genericChangeFailure(state, action.boardId, action.error)),
+  on(noteActions.saveBoardSuccess, (state: BoardsState, action) => boards.genericChangeSuccess(state, action.payload.Id, action.payload)),
   //#endregion 
 
   //#region  DELETE BOARD 
-  on(noteActions.deleteBoardRequest, (state: BoardsState, action) => h.genericBoardChangeRequest(state, action.boardId, null)),
-  on(noteActions.deleteBoardFailure, (state: BoardsState, action) => h.genericBoardChangeFailure(state, action.boardId, action.error)),
-  on(noteActions.deleteBoardSuccess, (state: BoardsState, action) => h.genericBoardChangeSuccess(state, action.payload.Id, null)),
+  on(noteActions.deleteBoardRequest, (state: BoardsState, action) => boards.genericChangeRequest(state, action.boardId, null)),
+  on(noteActions.deleteBoardFailure, (state: BoardsState, action) => boards.genericChangeFailure(state, action.boardId, action.error)),
+  on(noteActions.deleteBoardSuccess, (state: BoardsState, action) => boards.genericChangeSuccess(state, action.payload.Id, null)),
   //#endregion 
 
   //#endregion ###############################################################################################
@@ -130,10 +134,10 @@ const boardsReducer = createReducer(
       IsLoading: false,
       Error: null,
       Items: [
-        ...h.notAffectedBoards(action.boardId, state),
+        ...boards.notAffected(action.boardId, state),
         {
-          ...h.affectedBoard(action.boardId, state),
-          Notes: [...h.allNotes(boardId, state), newNote],
+          ...boards.affected(action.boardId, state),
+          Notes: [...notes.all(boardId, state), newNote],
         },
       ],
     };
@@ -148,10 +152,10 @@ const boardsReducer = createReducer(
       IsLoading: false,
       Error: null,
       Items: [
-        ...h.notAffectedBoards(action.boardId, state),
+        ...boards.notAffected(action.boardId, state),
         {
-          ...h.affectedBoard(action.boardId, state),
-          Notes: [...h.notAffectedNotes(action.noteId, action.boardId, state)],
+          ...boards.affected(action.boardId, state),
+          Notes: [...notes.notAffected(action.noteId, action.boardId, state)],
         },
       ],
     };
@@ -161,21 +165,21 @@ const boardsReducer = createReducer(
 
   //#region  EDIT NOTE 
   on(noteActions.editNote,
-    (state: BoardsState, action) => h.genericNoteEdit(true, state, action.boardId, action.noteId)),
+    (state: BoardsState, action) => notes.genericEdit(true, state, action.boardId, action.noteId)),
   on(noteActions.cancelEditNote,
-    (state: BoardsState, action) => h.genericNoteEdit(false, state, action.boardId, action.noteId)),
+    (state: BoardsState, action) => notes.genericEdit(false, state, action.boardId, action.noteId)),
   //#endregion 
 
   //#region  SAVE NOTE 
-  on(noteActions.saveNoteRequest, (state: BoardsState, action) => h.genericNoteChangeRequest(state, action.payload.BoardId, action.payload.Id, action.payload)),
-  on(noteActions.saveNoteFailure, (state: BoardsState, action) => h.genericNoteChangeFailure(state, action.boardId, action.noteId, action.error)),
-  on(noteActions.saveNoteSuccess, (state: BoardsState, action) => h.genericNoteChangeSuccess(state, action.payload.BoardId, action.payload.Id, action.payload)),
+  on(noteActions.saveNoteRequest, (state: BoardsState, action) => notes.genericChangeRequest(state, action.payload.BoardId, action.payload.Id, action.payload)),
+  on(noteActions.saveNoteFailure, (state: BoardsState, action) => notes.genericChangeFailure(state, action.boardId, action.noteId, action.error)),
+  on(noteActions.saveNoteSuccess, (state: BoardsState, action) => notes.genericChangeSuccess(state, action.payload.BoardId, action.payload.Id, action.payload)),
   //#endregion 
 
   //#region  DELETE NOTE 
-  on(noteActions.deleteNoteRequest, (state: BoardsState, action) => h.genericNoteChangeRequest(state, action.boardId, action.noteId, null)),
-  on(noteActions.deleteNoteFailure, (state: BoardsState, action) => h.genericNoteChangeFailure(state, action.boardId, action.noteId, action.error)),
-  on(noteActions.deleteNoteSuccess, (state: BoardsState, action) => h.genericNoteChangeSuccess(state, action.payload.BoardId, action.payload.Id, null)),
+  on(noteActions.deleteNoteRequest, (state: BoardsState, action) => notes.genericChangeRequest(state, action.boardId, action.noteId, null)),
+  on(noteActions.deleteNoteFailure, (state: BoardsState, action) => notes.genericChangeFailure(state, action.boardId, action.noteId, action.error)),
+  on(noteActions.deleteNoteSuccess, (state: BoardsState, action) => notes.genericChangeSuccess(state, action.payload.BoardId, action.payload.Id, null)),
   //#endregion 
 
   //#endregion ################################################################################################

@@ -1,5 +1,5 @@
 import { WeatherForecast } from "../../models/weather-forecast.model";
-import { GenericState } from "src/app/models/Interfaces/generic-state.interface";
+import { GenericState } from "src/app/shared/interfaces/generic-state.interface";
 
 export interface WeathersState extends GenericState<WeatherForecast> {
 

@@ -1,6 +1,6 @@
-import { Editable } from "./Interfaces/editable.interface";
-import { Identificable } from "./Interfaces/identificable.interface";
-import { Loadable } from "./Interfaces/loadable.interface";
+import { Editable } from "../shared/interfaces/editable.interface";
+import { Identificable } from "../shared/interfaces/identificable.interface";
+import { Loadable } from "../shared/interfaces/loadable.interface";
 
 export class Note implements Editable, Loadable, Identificable
 {

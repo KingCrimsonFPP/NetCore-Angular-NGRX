@@ -1,5 +1,5 @@
-import { Identificable } from "./Interfaces/identificable.interface";
-import { Loadable } from "./Interfaces/loadable.interface";
+import { Identificable } from "../shared/interfaces/identificable.interface";
+import { Loadable } from "../shared/interfaces/loadable.interface";
 
 export interface WeatherForecast extends Identificable, Loadable{
   Id: Number;
