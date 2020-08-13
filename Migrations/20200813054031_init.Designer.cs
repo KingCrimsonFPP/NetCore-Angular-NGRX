@@ -9,8 +9,8 @@ using NetCoreAngularNgrx.Repositories.Common;
 namespace NetCoreAngularNgrx.Migrations
 {
     [DbContext(typeof(DataDbContext))]
-    [Migration("20200708201715_initial")]
-    partial class initial
+    [Migration("20200813054031_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,7 +28,7 @@ namespace NetCoreAngularNgrx.Migrations
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnName("Date")
                         .HasColumnType("TEXT")
-                        .HasDefaultValue(new DateTime(2020, 7, 8, 15, 17, 15, 78, DateTimeKind.Local).AddTicks(2885));
+                        .HasDefaultValue(new DateTime(2020, 8, 13, 0, 40, 31, 133, DateTimeKind.Local).AddTicks(3279));
 
                     b.Property<string>("Title")
                         .HasColumnType("TEXT")
@@ -72,7 +72,7 @@ namespace NetCoreAngularNgrx.Migrations
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnName("Date")
                         .HasColumnType("TEXT")
-                        .HasDefaultValue(new DateTime(2020, 7, 8, 15, 17, 15, 81, DateTimeKind.Local).AddTicks(9679));
+                        .HasDefaultValue(new DateTime(2020, 8, 13, 0, 40, 31, 136, DateTimeKind.Local).AddTicks(6057));
 
                     b.Property<string>("Description")
                         .HasColumnType("TEXT");
@@ -121,70 +121,70 @@ namespace NetCoreAngularNgrx.Migrations
                         new
                         {
                             Id = 1,
-                            Date = new DateTime(2020, 7, 8, 15, 17, 15, 65, DateTimeKind.Local).AddTicks(6193),
+                            Date = new DateTime(2020, 8, 13, 0, 40, 31, 123, DateTimeKind.Local).AddTicks(6371),
                             Summary = "Freezing",
                             TemperatureC = 0
                         },
                         new
                         {
                             Id = 2,
-                            Date = new DateTime(2020, 7, 8, 15, 17, 15, 70, DateTimeKind.Local).AddTicks(9481),
+                            Date = new DateTime(2020, 8, 13, 0, 40, 31, 127, DateTimeKind.Local).AddTicks(1871),
                             Summary = "Bracing",
                             TemperatureC = 5
                         },
                         new
                         {
                             Id = 3,
-                            Date = new DateTime(2020, 7, 8, 15, 17, 15, 70, DateTimeKind.Local).AddTicks(9587),
+                            Date = new DateTime(2020, 8, 13, 0, 40, 31, 127, DateTimeKind.Local).AddTicks(1912),
                             Summary = "Chilly",
                             TemperatureC = 10
                         },
                         new
                         {
                             Id = 4,
-                            Date = new DateTime(2020, 7, 8, 15, 17, 15, 70, DateTimeKind.Local).AddTicks(9596),
+                            Date = new DateTime(2020, 8, 13, 0, 40, 31, 127, DateTimeKind.Local).AddTicks(1918),
                             Summary = "Cool",
                             TemperatureC = 15
                         },
                         new
                         {
                             Id = 5,
-                            Date = new DateTime(2020, 7, 8, 15, 17, 15, 70, DateTimeKind.Local).AddTicks(9602),
+                            Date = new DateTime(2020, 8, 13, 0, 40, 31, 127, DateTimeKind.Local).AddTicks(1921),
                             Summary = "Mild",
                             TemperatureC = 20
                         },
                         new
                         {
                             Id = 6,
-                            Date = new DateTime(2020, 7, 8, 15, 17, 15, 70, DateTimeKind.Local).AddTicks(9607),
+                            Date = new DateTime(2020, 8, 13, 0, 40, 31, 127, DateTimeKind.Local).AddTicks(1925),
                             Summary = "Warm",
                             TemperatureC = 25
                         },
                         new
                         {
                             Id = 7,
-                            Date = new DateTime(2020, 7, 8, 15, 17, 15, 70, DateTimeKind.Local).AddTicks(9612),
+                            Date = new DateTime(2020, 8, 13, 0, 40, 31, 127, DateTimeKind.Local).AddTicks(1928),
                             Summary = "Balmy",
                             TemperatureC = 27
                         },
                         new
                         {
                             Id = 8,
-                            Date = new DateTime(2020, 7, 8, 15, 17, 15, 70, DateTimeKind.Local).AddTicks(9617),
+                            Date = new DateTime(2020, 8, 13, 0, 40, 31, 127, DateTimeKind.Local).AddTicks(1931),
                             Summary = "Hot",
                             TemperatureC = 30
                         },
                         new
                         {
                             Id = 9,
-                            Date = new DateTime(2020, 7, 8, 15, 17, 15, 70, DateTimeKind.Local).AddTicks(9623),
+                            Date = new DateTime(2020, 8, 13, 0, 40, 31, 127, DateTimeKind.Local).AddTicks(1933),
                             Summary = "Sweltering",
                             TemperatureC = 35
                         },
                         new
                         {
                             Id = 10,
-                            Date = new DateTime(2020, 7, 8, 15, 17, 15, 70, DateTimeKind.Local).AddTicks(9628),
+                            Date = new DateTime(2020, 8, 13, 0, 40, 31, 127, DateTimeKind.Local).AddTicks(1936),
                             Summary = "Scorching",
                             TemperatureC = 40
                         });
@@ -193,7 +193,7 @@ namespace NetCoreAngularNgrx.Migrations
             modelBuilder.Entity("NetCoreAngularNgrx.Common.Models.Note", b =>
                 {
                     b.HasOne("NetCoreAngularNgrx.Common.Models.Board", null)
-                        .WithMany("Notes")
+                        .WithMany("Items")
                         .HasForeignKey("BoardId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

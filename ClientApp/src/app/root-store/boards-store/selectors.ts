@@ -29,7 +29,7 @@ export const selectNote = (boardId:number, noteId:number) => createSelector(
     state => 
     {
         var board =state.Items.find(x=>x.Id==boardId);
-        if(!board || !board.Notes || board.Notes.length == 0) return null;
-        return board.Notes.find(x=>x.Id==noteId);
+        if(!board || !board.Items || board.Items.length == 0) return null;
+        return board.Items.find(x=>x.Id==noteId);
     }
 );

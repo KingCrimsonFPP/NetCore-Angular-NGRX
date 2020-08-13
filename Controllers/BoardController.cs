@@ -65,7 +65,7 @@ namespace NetCoreAngularNgrx.Controllers
             var board = Get(boardId);
             if (board == null) return NotFound();
 
-            var result = board.Notes ?? new List<Note>();
+            var result = board.Items ?? new List<Note>();
             return Ok(result);
         }
 

@@ -31,11 +31,6 @@ namespace NetCoreAngularNgrx.Repositories.Common
                 .ValueGeneratedOnAddOrUpdate()
                 .IsRequired();
 
-                //entity.HasMany(d => d.Notes)
-                //    .WithOne(p => p.Board)
-                //    .HasForeignKey(d => d.BoardId)
-                //    .HasConstraintName("FK_Notes_Board");
-
                 entity.HasData(SeedBoards());
             });
 
@@ -46,11 +41,6 @@ namespace NetCoreAngularNgrx.Repositories.Common
                         .HasDefaultValue(DateTime.Now)
                         .ValueGeneratedOnAddOrUpdate()
                         .IsRequired();
-
-                    //entity.HasOne(d => d.Board)
-                    //    .WithMany(p => p.Notes)
-                    //    .HasForeignKey(d => d.BoardId)
-                    //    .HasConstraintName("FK_Notes_Board");
 
                     entity.HasData(SeedNotes());
                 });

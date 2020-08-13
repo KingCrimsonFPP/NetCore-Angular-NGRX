@@ -36,7 +36,7 @@
       </h3>
       <div class="card-body">
         <div class="row">
-          <app-note *ngFor="let note of (model.Notes | sortBy:'asc': 'Id')" [boardId]="model.Id" [noteId]="note.Id">
+          <app-note *ngFor="let note of (model.Items | sortBy:'asc': 'Id')" [boardId]="model.Id" [noteId]="note.Id">
           </app-note>
         </div>
       </div>

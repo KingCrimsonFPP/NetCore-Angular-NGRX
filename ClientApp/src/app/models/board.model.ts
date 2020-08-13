@@ -2,15 +2,15 @@ import { Note } from "./note.model";
 import { Editable } from "../shared/interfaces/editable.interface";
 import { Identificable } from "../shared/interfaces/identificable.interface";
 import { Loadable } from "../shared/interfaces/loadable.interface";
+import { CollectionState } from "../shared/interfaces/generic-state.interface";
 
-
-export class Board implements Editable, Loadable, Identificable
+export class Board implements Editable, Loadable, Identificable, CollectionState<Note>
 {
     public Id: number;
     public Title: string;
     public Date: Date;
-    public Notes: Note[];
-    
+    public Items: Note[];
+
     // IEditable
     public EditMode: boolean;
     public IsNew: boolean;

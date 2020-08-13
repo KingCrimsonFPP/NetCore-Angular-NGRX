@@ -4,8 +4,9 @@ import * as noteActions from "./actions";
 import { RandomId } from "src/app/shared/random-id-generator";
 import { Note } from "src/app/models/note.model";
 import { Board } from "src/app/models/board.model";
-import { ReducerHelperNotes } from "./reducer-helper-notes";
-import { GenericReducer } from "../generic-reducer";
+// import { ReducerHelperNotes } from "./reducer-helper-notes";
+import { ReducerHelper } from "../../shared/model-reducer-helper";
+import { NestedReducerHelper } from "src/app/shared/nested-model-reducer-helper";
 
 export const boardsFeatureKey = "boards";
 
@@ -16,103 +17,50 @@ export function boardsFeatureReducer(
   return boardsReducer(state, action);
 }
 
-const boards : GenericReducer<Board> = new GenericReducer<Board>(); 
-const notes: ReducerHelperNotes = new ReducerHelperNotes();
+const boards: ReducerHelper<Board> = new ReducerHelper<Board>();
+// const notes: ReducerHelperNotes = new ReducerHelperNotes();
+const notes: NestedReducerHelper<Board, Note> = new NestedReducerHelper<Board, Note>();
 
 const boardsReducer = createReducer(
   initialState,
   //#region  REDUCERS => BOARD ###############################################################################
 
-  //#region  LOAD BOARD 
-  on(noteActions.loadBoardRequest, (state: BoardsState, action) => {
-    var result = {
-      ...state,
-      IsLoading: true,
-      Error: null,
-    };
-    return result;
-  }),
-  on(noteActions.loadBoardFailure, (state: BoardsState, action) => {
-    var result = {
-      ...state,
-      IsLoading: false,
-      Error: action.error,
-    };
-    return result;
-  }),
-  on(noteActions.loadBoardSuccess, (state: BoardsState, action) => {
-    var result = {
-      ...state,
-      IsLoading: false,
-      Error: null,
-      Items: [...action.payload],
-    };
-    return result;
-  }),
-  //#endregion 
+  on(noteActions.loadBoardRequest, (state: BoardsState, action) => boards.LoadRequest(state)),
+  on(noteActions.loadBoardFailure, (state: BoardsState, action) => boards.LoadFailure(state, action.error)),
+  on(noteActions.loadBoardSuccess, (state: BoardsState, action) => boards.LoadSuccess(state, action.payload)),
 
-  //#region  ADD NEW BOARD 
   on(noteActions.addNewBoard, (state: BoardsState, action) => {
-    var randomId = RandomId.Generate();
     var newBoard: Board =
     {
-      Id: -randomId,
+      Id: -RandomId.Generate(),
       IsNew: true,
       EditMode: true,
       Title: `New Board`,
       Date: new Date(),
-      Notes: [],
+      Items: [],
       IsLoading: false,
       Changed: false,
       Error: null
     };
-    var result = {
-      ...state,
-      IsLoading: false,
-      Error: null,
-      Items: [...state.Items, newBoard],
-    };
-    return result;
+    return boards.AddNew(state, newBoard);
   }),
-  //#endregion 
+  on(noteActions.removeNewBoard, (state: BoardsState, action) => boards.RemoveNew(state, action.boardId)),
 
-  //#region  REMOVE NEW BOARD 
-  on(noteActions.removeNewBoard, (state: BoardsState, action) => {
-    var result = {
-      ...state,
-      IsLoading: false,
-      Error: null,
-      Items: [...boards.notAffected(action.boardId, state)],
-    };
-    return result;
-  }),
-  //#endregion 
+  on(noteActions.editBoard, (state: BoardsState, action) => boards.Edit(state, action.boardId)),
+  on(noteActions.cancelEditBoard, (state: BoardsState, action) => boards.EditCancellation(state, action.boardId)),
 
-  //#region  EDIT BOARD 
-  on(noteActions.editBoard,
-    (state: BoardsState, action) => boards.genericEdit(true, state, action.boardId)),
-  on(noteActions.cancelEditBoard,
-    (state: BoardsState, action) => boards.genericEdit(false, state, action.boardId)),
-  //#endregion 
+  on(noteActions.saveBoardRequest, (state: BoardsState, action) => boards.SaveRequest(state, action.payload.Id, action.payload)),
+  on(noteActions.saveBoardFailure, (state: BoardsState, action) => boards.SaveFailure(state, action.boardId, action.error)),
+  on(noteActions.saveBoardSuccess, (state: BoardsState, action) => boards.SaveSuccess(state, action.payload.Id, action.payload)),
 
-  //#region  SAVE BOARD 
-  // genericBoardChangeRequest
-  on(noteActions.saveBoardRequest, (state: BoardsState, action) => boards.genericChangeRequest(state, action.payload.Id, action.payload)),
-  on(noteActions.saveBoardFailure, (state: BoardsState, action) => boards.genericChangeFailure(state, action.boardId, action.error)),
-  on(noteActions.saveBoardSuccess, (state: BoardsState, action) => boards.genericChangeSuccess(state, action.payload.Id, action.payload)),
-  //#endregion 
-
-  //#region  DELETE BOARD 
-  on(noteActions.deleteBoardRequest, (state: BoardsState, action) => boards.genericChangeRequest(state, action.boardId, null)),
-  on(noteActions.deleteBoardFailure, (state: BoardsState, action) => boards.genericChangeFailure(state, action.boardId, action.error)),
-  on(noteActions.deleteBoardSuccess, (state: BoardsState, action) => boards.genericChangeSuccess(state, action.payload.Id, null)),
-  //#endregion 
+  on(noteActions.deleteBoardRequest, (state: BoardsState, action) => boards.DeleteRequest(state, action.boardId)),
+  on(noteActions.deleteBoardFailure, (state: BoardsState, action) => boards.DeleteFailure(state, action.boardId, action.error)),
+  on(noteActions.deleteBoardSuccess, (state: BoardsState, action) => boards.DeleteSuccess(state, action.payload.Id)),
 
   //#endregion ###############################################################################################
 
   //#region  REDUCERS => NOTE ################################################################################
 
-  // #region ADD NEW NOTE
   on(noteActions.addNewNote, (state: BoardsState, action) => {
     var randomId = RandomId.Generate();
     var boardId = action.boardId;
@@ -129,58 +77,21 @@ const boardsReducer = createReducer(
       Changed: false,
       Error: null,
     };
-    var result = {
-      ...state,
-      IsLoading: false,
-      Error: null,
-      Items: [
-        ...boards.notAffected(action.boardId, state),
-        {
-          ...boards.affected(action.boardId, state),
-          Notes: [...notes.all(boardId, state), newNote],
-        },
-      ],
-    };
-    return result;
+    return notes.AddNew(state, action.boardId, newNote);
   }),
-  //#endregion
 
-  // #region REMOVE NEW NOTE
-  on(noteActions.removeNewNote, (state: BoardsState, action) => {
-    var result = {
-      ...state,
-      IsLoading: false,
-      Error: null,
-      Items: [
-        ...boards.notAffected(action.boardId, state),
-        {
-          ...boards.affected(action.boardId, state),
-          Notes: [...notes.notAffected(action.noteId, action.boardId, state)],
-        },
-      ],
-    };
-    return result;
-  }),
-  //#endregion
+  on(noteActions.removeNewNote, (state: BoardsState, action) => notes.RemoveNew(state, action.boardId, action.noteId)),
 
-  //#region  EDIT NOTE 
-  on(noteActions.editNote,
-    (state: BoardsState, action) => notes.genericEdit(true, state, action.boardId, action.noteId)),
-  on(noteActions.cancelEditNote,
-    (state: BoardsState, action) => notes.genericEdit(false, state, action.boardId, action.noteId)),
-  //#endregion 
+  on(noteActions.editNote, (state: BoardsState, action) => notes.Edit(state, action.boardId, action.noteId)),
+  on(noteActions.cancelEditNote, (state: BoardsState, action) => notes.EditCancellation(state, action.boardId, action.noteId)),
 
-  //#region  SAVE NOTE 
-  on(noteActions.saveNoteRequest, (state: BoardsState, action) => notes.genericChangeRequest(state, action.payload.BoardId, action.payload.Id, action.payload)),
-  on(noteActions.saveNoteFailure, (state: BoardsState, action) => notes.genericChangeFailure(state, action.boardId, action.noteId, action.error)),
-  on(noteActions.saveNoteSuccess, (state: BoardsState, action) => notes.genericChangeSuccess(state, action.payload.BoardId, action.payload.Id, action.payload)),
-  //#endregion 
+  on(noteActions.saveNoteRequest, (state: BoardsState, action) => notes.SaveRequest(state, action.payload.BoardId, action.payload.Id, action.payload)),
+  on(noteActions.saveNoteFailure, (state: BoardsState, action) => notes.SaveFailure(state, action.boardId, action.noteId, action.error)),
+  on(noteActions.saveNoteSuccess, (state: BoardsState, action) => notes.SaveSuccess(state, action.payload.BoardId, action.payload.Id, action.payload)),
 
-  //#region  DELETE NOTE 
-  on(noteActions.deleteNoteRequest, (state: BoardsState, action) => notes.genericChangeRequest(state, action.boardId, action.noteId, null)),
-  on(noteActions.deleteNoteFailure, (state: BoardsState, action) => notes.genericChangeFailure(state, action.boardId, action.noteId, action.error)),
-  on(noteActions.deleteNoteSuccess, (state: BoardsState, action) => notes.genericChangeSuccess(state, action.payload.BoardId, action.payload.Id, null)),
-  //#endregion 
+  on(noteActions.deleteNoteRequest, (state: BoardsState, action) => notes.DeleteRequest(state, action.boardId, action.noteId)),
+  on(noteActions.deleteNoteFailure, (state: BoardsState, action) => notes.DeleteFailure(state, action.boardId, action.noteId, action.error)),
+  on(noteActions.deleteNoteSuccess, (state: BoardsState, action) => notes.DeleteSuccess(state, action.payload.BoardId, action.payload.Id)),
 
   //#endregion ################################################################################################
 );

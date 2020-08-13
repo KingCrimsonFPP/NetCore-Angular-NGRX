@@ -12,7 +12,7 @@ namespace NetCoreAngularNgrx.Repositories
         protected override DbSet<Board> GetDtSet() => Ctx.Boards;
         public IEnumerable<Board> GetAllBoardAndNotes()
         {
-           return this.Ctx.Boards.Include(x => x.Notes);
+           return this.Ctx.Boards.Include(x => x.Items);
         }
     }
 }

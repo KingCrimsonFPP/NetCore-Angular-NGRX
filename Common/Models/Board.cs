@@ -14,7 +14,7 @@ namespace NetCoreAngularNgrx.Common.Models
 
         [MaxLength(50)]
         public string Title { get; set; }
-        public ICollection<Note> Notes { get; set; } = new HashSet<Note>();
+        public ICollection<Note> Items { get; set; } = new HashSet<Note>();
         public DateTime Date { get; set; }
     }
 }
